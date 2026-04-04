@@ -19,7 +19,7 @@ html,body{width:1920px;height:1080px;overflow:hidden;background:#0a0a0a;color:#f
 .sh-left{color:#f0d0d0;font-size:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;}
 .sh-badge{background:#0a0a0a;color:#a04040;font-size:13px;font-weight:900;padding:3px 10px;border-radius:2px;}
 .events-top{padding:14px 40px 10px;display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-.events-mid{padding:0 40px 10px;display:grid;grid-template-columns:1fr;gap:16px;}
+.events-mid{padding:0 40px 10px;}
 .event-card{background:#111;border:2px solid #222;border-radius:8px;padding:28px 36px;position:relative;overflow:hidden;}
 .event-card.featured{border-color:#7a3030;}
 .event-card.southpark{border-color:#1a3a5a;background:#0d1520;}
@@ -41,12 +41,15 @@ html,body{width:1920px;height:1080px;overflow:hidden;background:#0a0a0a;color:#f
 .divider{height:1px;background:#1e1e1e;margin:0 40px;}
 .coming-soon{padding:10px 40px 0;}
 .cs-title{font-size:13px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#555;margin-bottom:10px;}
-.cs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+.cs-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;}
 .cs-item{background:#0f0f0f;border:1px solid #1e1e1e;border-radius:5px;padding:14px 20px;}
+.cs-item.ladies{border-color:#5a1a3a;background:#1a0a12;}
 .cs-date{font-size:12px;color:#f0c040;font-weight:700;margin-bottom:5px;letter-spacing:1px;text-transform:uppercase;}
+.cs-date.ladies{color:#ff6aaa;}
 .cs-name{font-size:18px;font-weight:700;color:#ddd;margin-bottom:3px;}
-.cs-detail{font-size:13px;color:#555;margin-top:3px;}
-.footer{background:#0f0f0f;border-top:1px solid #1e1e1e;padding:8px 40px;display:flex;justify-content:space-between;}
+.cs-detail{font-size:13px;color:#555;margin-top:4px;}
+.cs-detail.ladies{color:#aa4466;}
+.footer{width:1920px;margin-left:-160px;background:#0f0f0f;border-top:1px solid #1e1e1e;padding:8px 160px;display:flex;justify-content:space-between;}
 .ft{font-size:13px;color:#3a3a3a;}
 </style>
 </head>
@@ -56,7 +59,7 @@ html,body{width:1920px;height:1080px;overflow:hidden;background:#0a0a0a;color:#f
   <div class="logo">P<span style="color:#fff;">.</span>V<span style="color:#fff;">.</span> HOUSE <span style="font-size:18px;color:#555;font-weight:400;letter-spacing:1px;">— Restaurant &amp; Sports Lounge &nbsp;/&nbsp; Playa Vista</span></div>
   <div class="header-right"><span style="color:#f0c040;">&#9733;</span> EVENTS &amp; ENTERTAINMENT &nbsp;|&nbsp; PLAYA VISTA<br>pvhousela.com</div>
 </div>
-<div class="ticker"><div class="ticker-inner">KARAOKE EVERY TUESDAY at 7:30 PM &bull; South Park Special Screenings Every Wednesday at 9PM &bull; Happy Hour Mon-Fri 3-6PM &bull; All Day Drink Specials Every Day &bull; Veuve Clicquot by the Glass $16.95 &bull; Private Events &amp; Party Bookings Available &bull; Follow us @p.v.house &bull; Reserve your table at pvhousela.com</div></div>
+<div class="ticker"><div class="ticker-inner">KARAOKE EVERY TUESDAY at 7:30 PM &bull; South Park Special Screenings Every Wednesday at 9PM &bull; Happy Hour Mon-Fri 3-6PM &bull; Ladies Night Every Friday &bull; All Day Drink Specials Every Day &bull; Veuve Clicquot by the Glass $16.95 &bull; Private Events &amp; Party Bookings Available &bull; Follow us @p.v.house &bull; Reserve your table at pvhousela.com</div></div>
 </div>
 <div class="board">
 <div class="section-header"><span class="sh-left">&#9679; &nbsp;EVENTS &amp; ENTERTAINMENT AT PV HOUSE</span><span class="sh-badge">PLAYA VISTA · CA</span></div>
@@ -116,6 +119,11 @@ html,body{width:1920px;height:1080px;overflow:hidden;background:#0a0a0a;color:#f
       <div class="cs-date">Thursday</div>
       <div class="cs-name">All Well Drinks $9.95</div>
       <div class="cs-detail">All day · Every Thursday</div>
+    </div>
+    <div class="cs-item ladies">
+      <div class="cs-date ladies">&#128149; Friday</div>
+      <div class="cs-name">Ladies Night</div>
+      <div class="cs-detail ladies">All ladies drinks 15% off &bull; Single ladies leave with Gian</div>
     </div>
   </div>
 </div>
