@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=1920, initial-scale=1">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
-html,body{width:1920px;height:1080px;overflow:hidden;background:#0a0a0a;color:#fff;font-family:Arial,sans-serif;}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#0a0a0a;color:#fff;font-family:Arial,sans-serif;display:flex;align-items:center;justify-content:center;}
+.board{width:1600px;}
 .header{background:#111;border-bottom:3px solid #7a3030;padding:14px 40px;display:flex;align-items:center;justify-content:space-between;}
 .logo{font-size:32px;font-weight:900;letter-spacing:3px;color:#fff;}
 .logo span{color:#a04040;}
@@ -27,11 +28,12 @@ html,body{width:1920px;height:1080px;overflow:hidden;background:#0a0a0a;color:#f
 .odds-cell{display:flex;flex-direction:column;gap:5px;align-items:center;}
 .ov{font-size:18px;font-weight:700;color:#f0c040;background:#161616;border:1px solid #2a2a2a;border-radius:3px;padding:5px 8px;text-align:center;min-width:95px;}
 .sv{font-size:16px;font-weight:700;background:#161616;border:1px solid #2a2a2a;border-radius:3px;padding:5px 8px;text-align:center;min-width:95px;color:#f0c040;}
-.footer{background:#0f0f0f;border-top:1px solid #1e1e1e;padding:8px 40px;display:flex;justify-content:space-between;position:fixed;bottom:0;width:1920px;}
+.footer{background:#0f0f0f;border-top:1px solid #1e1e1e;padding:8px 40px;display:flex;justify-content:space-between;}
 .ft{font-size:13px;color:#3a3a3a;}
 </style>
 </head>
 <body>
+<div class="board">
 <div class="header">
   <div class="logo">P<span>.</span>V<span>.</span> HOUSE <span style="font-size:18px;color:#555;font-weight:400;letter-spacing:1px;">SPORTS LOUNGE</span></div>
   <div class="header-right"><span style="color:#5cb85c;">&#9679;</span> LIVE ODDS BOARD &nbsp;|&nbsp; SAT APR 4, 2026<br>Odds for entertainment only</div>
@@ -49,5 +51,6 @@ html,body{width:1920px;height:1080px;overflow:hidden;background:#0a0a0a;color:#f
 <div class="game-row"><div class="teams"><div class="team">Denver Nuggets</div><div class="team away">San Antonio Spurs</div><div class="team-info">12:00 PM PT</div></div><div class="odds-cell"><div class="ov">+1.5</div><div class="ov">-1.5</div></div><div class="odds-cell"><div class="ov">+108</div><div class="ov">-128</div></div><div class="odds-cell"><div class="ov" style="padding:12px 8px;">O 226</div></div><div class="odds-cell"><div class="sv">12:00 PM</div></div></div>
 <div class="game-row"><div class="teams"><div class="team">Philadelphia 76ers</div><div class="team away">Detroit Pistons</div><div class="team-info">4:00 PM PT</div></div><div class="odds-cell"><div class="ov">+1.5</div><div class="ov">-1.5</div></div><div class="odds-cell"><div class="ov">+102</div><div class="ov">-122</div></div><div class="odds-cell"><div class="ov" style="padding:12px 8px;">O 220</div></div><div class="odds-cell"><div class="sv">4:00 PM</div></div></div>
 <div class="footer"><div class="ft">pvhousela.com &nbsp;&bull;&nbsp; @p.v.house &nbsp;&bull;&nbsp; 12751 Millennium Drive, Playa Vista</div><div class="ft">Odds for entertainment only &bull; Must be 21+ to wager</div></div>
+</div>
 </body>
 </html>
