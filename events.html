@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920, initial-scale=1">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#0a0a0a;color:#fff;font-family:Arial,sans-serif;padding-top:15px;}
+.full-width{width:1920px;}
+.board{width:1600px;margin:0 auto;}
+.header{background:#111;border-bottom:3px solid #7a3030;padding:10px 160px;display:flex;align-items:center;justify-content:space-between;}
+.logo{font-size:26px;font-weight:900;letter-spacing:3px;color:#fff;}
+.logo span{color:#a04040;}
+.header-right{font-size:13px;color:#888;text-align:right;line-height:1.7;}
+.ticker{background:#7a3030;color:#f0d0d0;font-size:13px;font-weight:600;padding:4px 0;white-space:nowrap;overflow:hidden;}
+.ticker-inner{display:inline-block;animation:scroll 50s linear infinite;padding-left:100%;}
+@keyframes scroll{0%{transform:translateX(0);}100%{transform:translateX(-100%);}}
+.section-header{background:#7a3030;width:1920px;margin-left:-160px;padding:6px 160px;display:flex;align-items:center;justify-content:space-between;}
+.sh-left{color:#f0d0d0;font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;}
+.sh-badge{background:#0a0a0a;color:#a04040;font-size:11px;font-weight:900;padding:2px 8px;border-radius:2px;}
+.events{padding:20px 40px;display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+.event-card{background:#111;border:1px solid #222;border-radius:6px;padding:28px 32px;position:relative;overflow:hidden;}
+.event-card.featured{border-color:#7a3030;border-width:2px;}
+.event-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:#7a3030;}
+.event-card.featured::before{background:#a04040;width:6px;}
+.event-day{font-size:13px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#a04040;margin-bottom:6px;}
+.event-title{font-size:32px;font-weight:900;color:#fff;margin-bottom:8px;letter-spacing:1px;}
+.event-time{font-size:18px;color:#f0c040;font-weight:700;margin-bottom:10px;}
+.event-desc{font-size:15px;color:#888;line-height:1.6;}
+.event-badge{position:absolute;top:20px;right:24px;background:#7a3030;color:#f0d0d0;font-size:11px;font-weight:700;padding:4px 12px;border-radius:2px;letter-spacing:1px;text-transform:uppercase;}
+.event-badge.weekly{background:#1a3a1a;color:#6adf6a;}
+.divider{height:1px;background:#1e1e1e;margin:0 40px;}
+.coming-soon{padding:20px 40px;}
+.cs-title{font-size:13px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#555;margin-bottom:14px;}
+.cs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.cs-item{background:#0f0f0f;border:1px solid #1e1e1e;border-radius:4px;padding:16px 20px;}
+.cs-date{font-size:12px;color:#f0c040;font-weight:700;margin-bottom:4px;}
+.cs-name{font-size:16px;font-weight:700;color:#ccc;}
+.cs-detail{font-size:12px;color:#555;margin-top:3px;}
+.footer{background:#0f0f0f;border-top:1px solid #1e1e1e;padding:6px 40px;display:flex;justify-content:space-between;}
+.ft{font-size:11px;color:#3a3a3a;}
+</style>
+</head>
+<body>
+<div class="full-width">
+<div class="header">
+  <div class="logo">P<span>.</span>V<span>.</span> HOUSE <span style="font-size:15px;color:#555;font-weight:400;letter-spacing:1px;">SPORTS LOUNGE</span></div>
+  <div class="header-right"><span style="color:#f0c040;">&#9733;</span> EVENTS &amp; ENTERTAINMENT &nbsp;|&nbsp; PLAYA VISTA<br>pvhousela.com</div>
+</div>
+<div class="ticker"><div class="ticker-inner">KARAOKE EVERY TUESDAY at 7:30 PM &bull; Happy Hour Mon-Fri 3-6PM &bull; All Day Drink Specials Every Day &bull; Veuve Clicquot by the Glass $16.95 &bull; Private Events &amp; Party Bookings Available &bull; Follow us @p.v.house &bull; Reserve your table at pvhousela.com</div></div>
+</div>
+<div class="board">
+<div class="section-header"><span class="sh-left">&#9679; &nbsp;UPCOMING EVENTS AT PV HOUSE</span><span class="sh-badge">PLAYA VISTA · CA</span></div>
+<div class="events">
+  <div class="event-card featured">
+    <span class="event-badge weekly">Every Week</span>
+    <div class="event-day">Every Tuesday</div>
+    <div class="event-title">&#127908; Karaoke Night</div>
+    <div class="event-time">7:30 PM — Close</div>
+    <div class="event-desc">Grab the mic and take the stage. Join us every Tuesday night for Karaoke at PV House. All skill levels welcome — the more the merrier. Drink specials all night long.</div>
+  </div>
+  <div class="event-card">
+    <span class="event-badge weekly">Daily</span>
+    <div class="event-day">Mon – Fri &nbsp;3:00 – 6:00 PM</div>
+    <div class="event-title">&#127860; Happy Hour</div>
+    <div class="event-time">$12.95 Bites · Drink Specials</div>
+    <div class="event-desc">Nachos, Chicken Wings, Chinese Chicken Salad, Buffalo Cauliflower, Cheeseburger Sliders, Pepperoni Pizza, Veggie Rice Bowl — all $12.95 each. Plus daily drink specials.</div>
+  </div>
+</div>
+<div class="divider"></div>
+<div class="coming-soon">
+  <div class="cs-title">&#9679; &nbsp;Coming Up at PV House</div>
+  <div class="cs-grid">
+    <div class="cs-item">
+      <div class="cs-date">Every Monday</div>
+      <div class="cs-name">All Drafts 20% Off</div>
+      <div class="cs-detail">All day drink special</div>
+    </div>
+    <div class="cs-item">
+      <div class="cs-date">Every Tuesday</div>
+      <div class="cs-name">Tito's Vodka Drinks</div>
+      <div class="cs-detail">$10.95 all day</div>
+    </div>
+    <div class="cs-item">
+      <div class="cs-date">Every Wednesday</div>
+      <div class="cs-name">All Wines 20% Off</div>
+      <div class="cs-detail">All day drink special</div>
+    </div>
+    <div class="cs-item">
+      <div class="cs-date">Every Thursday</div>
+      <div class="cs-name">All Well Drinks</div>
+      <div class="cs-detail">$9.95 all day</div>
+    </div>
+  </div>
+</div>
+<div class="footer"><div class="ft">pvhousela.com &nbsp;&bull;&nbsp; @p.v.house &nbsp;&bull;&nbsp; 12751 Millennium Drive, Playa Vista &nbsp;&bull;&nbsp; Reservations &amp; Private Events available online</div><div class="ft">Follow us on Instagram @p.v.house</div></div>
+</div>
+</body>
+</html>
