@@ -18,9 +18,8 @@ html,body{width:1920px;height:1080px;overflow:hidden;background:#0a0a0a;color:#f
 .section-header{background:#7a3030;width:1920px;margin-left:-160px;padding:8px 160px;display:flex;align-items:center;justify-content:space-between;}
 .sh-left{color:#f0d0d0;font-size:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;}
 .sh-badge{background:#0a0a0a;color:#a04040;font-size:13px;font-weight:900;padding:3px 10px;border-radius:2px;}
-.col-headers{display:grid;grid-template-columns:1.5fr 120px 120px 100px 120px;gap:8px;padding:6px 40px;background:#141414;border-bottom:1px solid #222;}
+.col-headers{width:1920px;margin-left:-160px;display:grid;grid-template-columns:160px 1.5fr 120px 120px 100px 120px 160px;gap:8px;padding:6px 0;background:#141414;border-bottom:1px solid #222;}
 .col-h{text-align:center;font-size:13px;color:#555;text-transform:uppercase;letter-spacing:1px;}
-.col-h:first-child{text-align:left;}
 .game-row{border-bottom:1px solid #1e1e1e;padding:15px 40px;display:grid;grid-template-columns:1.5fr 120px 120px 100px 120px;gap:8px;align-items:center;}
 .game-row.la-featured{border-left:3px solid #a04040;padding-left:37px;}
 .teams{display:flex;flex-direction:column;gap:4px;}
@@ -31,21 +30,29 @@ html,body{width:1920px;height:1080px;overflow:hidden;background:#0a0a0a;color:#f
 .odds-cell{display:flex;flex-direction:column;gap:5px;align-items:center;}
 .ov{font-size:18px;font-weight:700;color:#f0c040;background:#161616;border:1px solid #2a2a2a;border-radius:3px;padding:5px 8px;text-align:center;min-width:95px;}
 .sv{font-size:16px;font-weight:700;background:#161616;border:1px solid #2a2a2a;border-radius:3px;padding:5px 8px;text-align:center;min-width:95px;color:#f0c040;}
-.footer{background:#0f0f0f;border-top:1px solid #1e1e1e;padding:8px 40px;display:flex;justify-content:space-between;}
+.footer{width:1920px;margin-left:-160px;background:#0f0f0f;border-top:1px solid #1e1e1e;padding:8px 160px;display:flex;justify-content:space-between;}
 .ft{font-size:13px;color:#3a3a3a;}
 </style>
 </head>
 <body>
 <div class="full-width">
 <div class="header">
-<div class="logo">P<span style="color:#fff;">.</span>V<span style="color:#fff;">.</span> HOUSE <span style="font-size:18px;color:#555;font-weight:400;letter-spacing:1px;">— Restaurant &amp; Sports Lounge &nbsp;/&nbsp; Playa Vista</span></div>
+  <div class="logo">P<span style="color:#fff;">.</span>V<span style="color:#fff;">.</span> HOUSE <span style="font-size:18px;color:#555;font-weight:400;letter-spacing:1px;">— Restaurant &amp; Sports Lounge &nbsp;/&nbsp; Playa Vista</span></div>
   <div class="header-right"><span style="color:#5cb85c;">&#9679;</span> LIVE ODDS BOARD &nbsp;|&nbsp; SAT APR 4, 2026<br>Odds for entertainment only</div>
 </div>
 <div class="ticker"><div class="ticker-inner">NHL TODAY: Kings vs Toronto 4PM &bull; Ducks vs Calgary 7PM &bull; Dallas vs Colorado 12PM &bull; Pittsburgh vs Florida 2PM &bull; Tampa Bay vs Boston 2PM &bull; Columbus vs Winnipeg 4PM &bull; Carolina vs NY Islanders 4PM &bull; Edmonton vs Vegas 7PM &bull; Seattle vs Chicago 7PM</div></div>
 </div>
 <div class="board">
 <div class="section-header"><span class="sh-left">&#9679; &nbsp;NHL — TODAY'S GAMES</span><span class="sh-badge">LA TEAMS FEATURED</span></div>
-<div class="col-headers"><div class="col-h">matchup</div><div class="col-h">puck line</div><div class="col-h">moneyline</div><div class="col-h">total</div><div class="col-h">puck drop</div></div>
+<div class="col-headers">
+  <div class="col-h"></div>
+  <div class="col-h" style="text-align:left;">matchup</div>
+  <div class="col-h">puck line</div>
+  <div class="col-h">moneyline</div>
+  <div class="col-h">total</div>
+  <div class="col-h">puck drop</div>
+  <div class="col-h"></div>
+</div>
 <div class="game-row la-featured"><div class="teams"><div class="team">LA Kings <span class="la-tag">LA</span></div><div class="team away">vs Toronto Maple Leafs</div><div class="team-info">4:00 PM PT &nbsp;&bull;&nbsp; BSW</div></div><div class="odds-cell"><div class="ov">-1.5</div><div class="ov">+1.5</div></div><div class="odds-cell"><div class="ov">-175</div><div class="ov">+145</div></div><div class="odds-cell"><div class="ov" style="padding:12px 8px;">O 6.0</div></div><div class="odds-cell"><div class="sv">4:00 PM</div></div></div>
 <div class="game-row la-featured"><div class="teams"><div class="team">Anaheim Ducks <span class="la-tag">OC</span></div><div class="team away">vs Calgary Flames</div><div class="team-info">7:00 PM PT &nbsp;&bull;&nbsp; BSW</div></div><div class="odds-cell"><div class="ov">+1.5</div><div class="ov">-1.5</div></div><div class="odds-cell"><div class="ov">+148</div><div class="ov">-178</div></div><div class="odds-cell"><div class="ov" style="padding:12px 8px;">O 5.5</div></div><div class="odds-cell"><div class="sv">7:00 PM</div></div></div>
 <div class="game-row"><div class="teams"><div class="team">Dallas Stars</div><div class="team away">vs Colorado Avalanche</div><div class="team-info">12:00 PM PT</div></div><div class="odds-cell"><div class="ov">+1.5</div><div class="ov">-1.5</div></div><div class="odds-cell"><div class="ov">+102</div><div class="ov">-122</div></div><div class="odds-cell"><div class="ov" style="padding:12px 8px;">O 6.0</div></div><div class="odds-cell"><div class="sv">12:00 PM</div></div></div>
