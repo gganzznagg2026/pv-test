@@ -18,25 +18,25 @@ html,body{width:1920px;height:1080px;overflow:hidden;background:#0a0a0a;color:#f
 .section-header{background:#7a3030;width:1920px;margin-left:-160px;padding:6px 160px;display:flex;align-items:center;justify-content:space-between;}
 .sh-left{color:#f0d0d0;font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;}
 .sh-badge{background:#0a0a0a;color:#a04040;font-size:11px;font-weight:900;padding:2px 8px;border-radius:2px;}
-.events{padding:20px 40px;display:grid;grid-template-columns:1fr 1fr;gap:24px;}
-.event-card{background:#111;border:1px solid #222;border-radius:6px;padding:28px 32px;position:relative;overflow:hidden;}
+.events{padding:22px 40px 16px;display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.event-card{background:#111;border:2px solid #222;border-radius:8px;padding:32px 36px;position:relative;overflow:hidden;}
 .event-card.featured{border-color:#7a3030;border-width:2px;}
-.event-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:#7a3030;}
-.event-card.featured::before{background:#a04040;width:6px;}
-.event-day{font-size:13px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#a04040;margin-bottom:6px;}
-.event-title{font-size:32px;font-weight:900;color:#fff;margin-bottom:8px;letter-spacing:1px;}
-.event-time{font-size:18px;color:#f0c040;font-weight:700;margin-bottom:10px;}
-.event-desc{font-size:15px;color:#888;line-height:1.6;}
-.event-badge{position:absolute;top:20px;right:24px;background:#7a3030;color:#f0d0d0;font-size:11px;font-weight:700;padding:4px 12px;border-radius:2px;letter-spacing:1px;text-transform:uppercase;}
+.event-card::before{content:'';position:absolute;top:0;left:0;width:6px;height:100%;background:#7a3030;}
+.event-card.featured::before{background:#a04040;width:8px;}
+.event-day{font-size:14px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#a04040;margin-bottom:10px;}
+.event-title{font-size:42px;font-weight:900;color:#fff;margin-bottom:12px;letter-spacing:1px;}
+.event-time{font-size:24px;color:#f0c040;font-weight:700;margin-bottom:14px;}
+.event-desc{font-size:16px;color:#888;line-height:1.7;}
+.event-badge{position:absolute;top:24px;right:28px;background:#7a3030;color:#f0d0d0;font-size:12px;font-weight:700;padding:5px 14px;border-radius:3px;letter-spacing:1px;text-transform:uppercase;}
 .event-badge.weekly{background:#1a3a1a;color:#6adf6a;}
 .divider{height:1px;background:#1e1e1e;margin:0 40px;}
-.coming-soon{padding:20px 40px;}
+.coming-soon{padding:16px 40px 0;}
 .cs-title{font-size:13px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#555;margin-bottom:14px;}
 .cs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
-.cs-item{background:#0f0f0f;border:1px solid #1e1e1e;border-radius:4px;padding:16px 20px;}
-.cs-date{font-size:12px;color:#f0c040;font-weight:700;margin-bottom:4px;}
-.cs-name{font-size:16px;font-weight:700;color:#ccc;}
-.cs-detail{font-size:12px;color:#555;margin-top:3px;}
+.cs-item{background:#0f0f0f;border:1px solid #1e1e1e;border-radius:5px;padding:20px 24px;}
+.cs-date{font-size:13px;color:#f0c040;font-weight:700;margin-bottom:6px;letter-spacing:1px;text-transform:uppercase;}
+.cs-name{font-size:20px;font-weight:700;color:#ddd;margin-bottom:4px;}
+.cs-detail{font-size:14px;color:#555;margin-top:4px;}
 .footer{background:#0f0f0f;border-top:1px solid #1e1e1e;padding:6px 40px;display:flex;justify-content:space-between;}
 .ft{font-size:11px;color:#3a3a3a;}
 </style>
@@ -57,39 +57,39 @@ html,body{width:1920px;height:1080px;overflow:hidden;background:#0a0a0a;color:#f
     <div class="event-day">Every Tuesday</div>
     <div class="event-title">&#127908; Karaoke Night</div>
     <div class="event-time">7:30 PM — Close</div>
-    <div class="event-desc">Grab the mic and take the stage. Join us every Tuesday night for Karaoke at PV House. All skill levels welcome — the more the merrier. Drink specials all night long.</div>
+    <div class="event-desc">Grab the mic and take the stage every Tuesday night at PV House. All skill levels welcome — the more the merrier. Drink specials running all night long. Come early for the best seats.</div>
   </div>
   <div class="event-card">
-    <span class="event-badge weekly">Daily</span>
-    <div class="event-day">Mon – Fri &nbsp;3:00 – 6:00 PM</div>
+    <span class="event-badge weekly">Mon – Fri</span>
+    <div class="event-day">Every Weekday · 3:00 – 6:00 PM</div>
     <div class="event-title">&#127860; Happy Hour</div>
-    <div class="event-time">$12.95 Bites · Drink Specials</div>
-    <div class="event-desc">Nachos, Chicken Wings, Chinese Chicken Salad, Buffalo Cauliflower, Cheeseburger Sliders, Pepperoni Pizza, Veggie Rice Bowl — all $12.95 each. Plus daily drink specials.</div>
+    <div class="event-time">Bites $12.95 · Drink Specials</div>
+    <div class="event-desc">Nachos, Wings, Chinese Chicken Salad, Buffalo Cauliflower, Cheeseburger Sliders, Pepperoni Pizza, and Veggie Rice Bowl — all just $12.95. Plus daily drink specials Mon through Fri.</div>
   </div>
 </div>
 <div class="divider"></div>
 <div class="coming-soon">
-  <div class="cs-title">&#9679; &nbsp;Coming Up at PV House</div>
+  <div class="cs-title">&#9679; &nbsp;Weekly Drink Specials</div>
   <div class="cs-grid">
     <div class="cs-item">
-      <div class="cs-date">Every Monday</div>
+      <div class="cs-date">Monday</div>
       <div class="cs-name">All Drafts 20% Off</div>
-      <div class="cs-detail">All day drink special</div>
+      <div class="cs-detail">All day · Every Monday</div>
     </div>
     <div class="cs-item">
-      <div class="cs-date">Every Tuesday</div>
+      <div class="cs-date">Tuesday</div>
       <div class="cs-name">Tito's Vodka Drinks</div>
       <div class="cs-detail">$10.95 all day</div>
     </div>
     <div class="cs-item">
-      <div class="cs-date">Every Wednesday</div>
+      <div class="cs-date">Wednesday</div>
       <div class="cs-name">All Wines 20% Off</div>
-      <div class="cs-detail">All day drink special</div>
+      <div class="cs-detail">All day · Every Wednesday</div>
     </div>
     <div class="cs-item">
-      <div class="cs-date">Every Thursday</div>
-      <div class="cs-name">All Well Drinks</div>
-      <div class="cs-detail">$9.95 all day</div>
+      <div class="cs-date">Thursday</div>
+      <div class="cs-name">All Well Drinks $9.95</div>
+      <div class="cs-detail">All day · Every Thursday</div>
     </div>
   </div>
 </div>
