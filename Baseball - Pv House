@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#0a0a0a;color:#fff;font-family:Arial,sans-serif;}
+.header{background:#111;border-bottom:3px solid #7a3030;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;}
+.logo{font-size:20px;font-weight:900;letter-spacing:2px;color:#fff;}
+.logo span{color:#a04040;}
+.header-right{font-size:10px;color:#888;text-align:right;line-height:1.7;}
+.ticker{background:#7a3030;color:#f0d0d0;font-size:11px;font-weight:600;padding:5px 0;white-space:nowrap;overflow:hidden;}
+.ticker-inner{display:inline-block;animation:scroll 50s linear infinite;padding-left:100%;}
+@keyframes scroll{0%{transform:translateX(0);}100%{transform:translateX(-100%);}}
+.section-header{background:#7a3030;color:#f0d0d0;font-size:10px;font-weight:700;letter-spacing:2px;padding:5px 20px;text-transform:uppercase;display:flex;align-items:center;justify-content:space-between;}
+.sh-badge{background:#0a0a0a;color:#a04040;font-size:9px;font-weight:900;padding:2px 7px;border-radius:2px;}
+.col-headers{display:grid;grid-template-columns:1.5fr 78px 78px 65px 82px;gap:5px;padding:4px 20px;background:#141414;border-bottom:1px solid #222;}
+.col-h{text-align:center;font-size:9px;color:#555;text-transform:uppercase;letter-spacing:1px;}
+.col-h:first-child{text-align:left;}
+.game-row{border-bottom:1px solid #181818;padding:7px 20px;display:grid;grid-template-columns:1.5fr 78px 78px 65px 82px;gap:5px;align-items:center;}
+.game-row.la-featured{border-left:3px solid #a04040;padding-left:17px;}
+.teams{display:flex;flex-direction:column;gap:2px;}
+.team{font-size:13px;font-weight:700;color:#fff;display:flex;align-items:center;gap:5px;}
+.team.away{color:#bbb;font-weight:400;}
+.team-info{font-size:10px;color:#f0c040;margin-top:2px;}
+.la-tag{background:#7a3030;color:#f0c040;font-size:8px;font-weight:700;padding:1px 5px;border-radius:2px;margin-left:4px;}
+.odds-cell{display:flex;flex-direction:column;gap:3px;align-items:center;}
+.ov{font-size:12px;font-weight:700;color:#f0c040;background:#161616;border:1px solid #2a2a2a;border-radius:3px;padding:3px 5px;text-align:center;min-width:62px;}
+.sv{font-size:11px;font-weight:700;background:#161616;border:1px solid #2a2a2a;border-radius:3px;padding:3px 5px;text-align:center;min-width:62px;color:#f0c040;}
+.footer{background:#0f0f0f;border-top:1px solid #1e1e1e;padding:5px 20px;display:flex;justify-content:space-between;}
+.ft{font-size:9px;color:#3a3a3a;}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="logo">P<span>.</span>V<span>.</span> HOUSE <span style="font-size:11px;color:#
