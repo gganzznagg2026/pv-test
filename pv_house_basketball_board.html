@@ -1,0 +1,101 @@
+
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  .board{background:#0a0a0a;color:#fff;font-family:Arial,sans-serif;width:100%;}
+  .header{background:#111;border-bottom:3px solid #7a3030;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;}
+  .logo{font-size:20px;font-weight:900;letter-spacing:2px;color:#fff;}
+  .logo span{color:#a04040;}
+  .header-right{font-size:10px;color:#888;text-align:right;line-height:1.7;}
+  .ticker{background:#7a3030;color:#f0d0d0;font-size:11px;font-weight:600;padding:5px 0;white-space:nowrap;overflow:hidden;}
+  .ticker-inner{display:inline-block;animation:scroll 50s linear infinite;padding-left:100%;}
+  @keyframes scroll{0%{transform:translateX(0);}100%{transform:translateX(-100%);}}
+  .section-header{background:#7a3030;color:#f0d0d0;font-size:10px;font-weight:700;letter-spacing:2px;padding:5px 20px;text-transform:uppercase;display:flex;align-items:center;justify-content:space-between;}
+  .sh-badge{background:#0a0a0a;color:#a04040;font-size:9px;font-weight:900;padding:2px 7px;border-radius:2px;}
+  .col-headers{display:grid;grid-template-columns:1.5fr 78px 78px 65px 82px;gap:5px;padding:4px 20px;background:#141414;border-bottom:1px solid #222;}
+  .col-h{text-align:center;font-size:9px;color:#555;text-transform:uppercase;letter-spacing:1px;}
+  .col-h:first-child{text-align:left;}
+  .game-row{border-bottom:1px solid #181818;padding:7px 20px;display:grid;grid-template-columns:1.5fr 78px 78px 65px 82px;gap:5px;align-items:center;}
+  .game-row:hover{background:#121212;}
+  .teams{display:flex;flex-direction:column;gap:2px;}
+  .team{font-size:13px;font-weight:700;color:#fff;display:flex;align-items:center;gap:5px;}
+  .team.away{color:#bbb;font-weight:400;}
+  .team-info{font-size:10px;color:#f0c040;margin-top:2px;}
+  .seed{font-size:9px;color:#666;font-weight:400;}
+  .odds-cell{display:flex;flex-direction:column;gap:3px;align-items:center;}
+  .ov{font-size:12px;font-weight:700;color:#f0c040;background:#161616;border:1px solid #2a2a2a;border-radius:3px;padding:3px 5px;text-align:center;min-width:62px;}
+  .sv{font-size:11px;font-weight:700;background:#161616;border:1px solid #2a2a2a;border-radius:3px;padding:3px 5px;text-align:center;min-width:62px;color:#f0c040;}
+  .footer{background:#0f0f0f;border-top:1px solid #1e1e1e;padding:5px 20px;display:flex;justify-content:space-between;}
+  .ft{font-size:9px;color:#3a3a3a;}
+</style>
+
+<div class="board">
+  <div class="header">
+    <div class="logo">P<span>.</span>V<span>.</span> HOUSE <span style="font-size:11px;color:#555;font-weight:400;letter-spacing:1px;">SPORTS LOUNGE</span></div>
+    <div class="header-right"><span style="color:#5cb85c;">&#9679;</span> LIVE ODDS BOARD &nbsp;|&nbsp; SAT APR 4, 2026<br>Odds for entertainment only</div>
+  </div>
+  <div class="ticker"><div class="ticker-inner">FINAL FOUR TODAY: Baylor vs Oklahoma 10:30AM &bull; Creighton vs W.Virginia 1:00PM &bull; UConn vs Illinois 3:09PM &bull; Arizona vs Michigan 5:54PM &nbsp;&bull;&nbsp; NBA: Miami vs Washington 12PM &bull; Denver vs San Antonio 12PM &bull; Philadelphia vs Detroit 4PM</div></div>
+
+  <div class="section-header"><span>&#9679; &nbsp;NCAA MARCH MADNESS — FINAL FOUR</span><span class="sh-badge">TODAY · TBS</span></div>
+  <div class="col-headers"><div class="col-h">matchup</div><div class="col-h">spread</div><div class="col-h">moneyline</div><div class="col-h">total</div><div class="col-h">tip time</div></div>
+
+  <div class="game-row">
+    <div class="teams"><div class="team"><span class="seed">(3)</span> Baylor Bears</div><div class="team away"><span class="seed">(6)</span> Oklahoma Sooners</div><div class="team-info">10:30 AM PT &nbsp;&bull;&nbsp; TBS &nbsp;&bull;&nbsp; Semifinal 1</div></div>
+    <div class="odds-cell"><div class="ov">-5.5</div><div class="ov">+5.5</div></div>
+    <div class="odds-cell"><div class="ov">-220</div><div class="ov">+182</div></div>
+    <div class="odds-cell"><div class="ov" style="padding:9px 5px;">O 145</div></div>
+    <div class="odds-cell"><div class="sv">10:30 AM</div></div>
+  </div>
+
+  <div class="game-row">
+    <div class="teams"><div class="team"><span class="seed">(2)</span> Creighton Bluejays</div><div class="team away"><span class="seed">(5)</span> West Virginia</div><div class="team-info">1:00 PM PT &nbsp;&bull;&nbsp; TBS &nbsp;&bull;&nbsp; Semifinal 2</div></div>
+    <div class="odds-cell"><div class="ov">-3.5</div><div class="ov">+3.5</div></div>
+    <div class="odds-cell"><div class="ov">-178</div><div class="ov">+150</div></div>
+    <div class="odds-cell"><div class="ov" style="padding:9px 5px;">O 142</div></div>
+    <div class="odds-cell"><div class="sv">1:00 PM</div></div>
+  </div>
+
+  <div class="game-row">
+    <div class="teams"><div class="team"><span class="seed">(1)</span> UConn Huskies</div><div class="team away"><span class="seed">(4)</span> Illinois Fighting Illini</div><div class="team-info">3:09 PM PT &nbsp;&bull;&nbsp; TBS &nbsp;&bull;&nbsp; Semifinal 3</div></div>
+    <div class="odds-cell"><div class="ov">-6.5</div><div class="ov">+6.5</div></div>
+    <div class="odds-cell"><div class="ov">-265</div><div class="ov">+218</div></div>
+    <div class="odds-cell"><div class="ov" style="padding:9px 5px;">O 138</div></div>
+    <div class="odds-cell"><div class="sv">3:09 PM</div></div>
+  </div>
+
+  <div class="game-row">
+    <div class="teams"><div class="team"><span class="seed">(1)</span> Arizona Wildcats</div><div class="team away"><span class="seed">(3)</span> Michigan Wolverines</div><div class="team-info">5:54 PM PT &nbsp;&bull;&nbsp; TBS &nbsp;&bull;&nbsp; Semifinal 4</div></div>
+    <div class="odds-cell"><div class="ov">-4.5</div><div class="ov">+4.5</div></div>
+    <div class="odds-cell"><div class="ov">-195</div><div class="ov">+162</div></div>
+    <div class="odds-cell"><div class="ov" style="padding:9px 5px;">O 141</div></div>
+    <div class="odds-cell"><div class="sv">5:54 PM</div></div>
+  </div>
+
+  <div class="section-header"><span>&#9679; &nbsp;NBA — TODAY'S GAMES</span><span class="sh-badge">SAT APR 4</span></div>
+  <div class="col-headers"><div class="col-h">matchup</div><div class="col-h">spread</div><div class="col-h">moneyline</div><div class="col-h">total</div><div class="col-h">tip time</div></div>
+
+  <div class="game-row">
+    <div class="teams"><div class="team">Miami Heat</div><div class="team away">Washington Wizards</div><div class="team-info">12:00 PM PT</div></div>
+    <div class="odds-cell"><div class="ov">-11.5</div><div class="ov">+11.5</div></div>
+    <div class="odds-cell"><div class="ov">-620</div><div class="ov">+460</div></div>
+    <div class="odds-cell"><div class="ov" style="padding:9px 5px;">O 218</div></div>
+    <div class="odds-cell"><div class="sv">12:00 PM</div></div>
+  </div>
+
+  <div class="game-row">
+    <div class="teams"><div class="team">Denver Nuggets</div><div class="team away">San Antonio Spurs</div><div class="team-info">12:00 PM PT</div></div>
+    <div class="odds-cell"><div class="ov">+1.5</div><div class="ov">-1.5</div></div>
+    <div class="odds-cell"><div class="ov">+108</div><div class="ov">-128</div></div>
+    <div class="odds-cell"><div class="ov" style="padding:9px 5px;">O 226</div></div>
+    <div class="odds-cell"><div class="sv">12:00 PM</div></div>
+  </div>
+
+  <div class="game-row">
+    <div class="teams"><div class="team">Philadelphia 76ers</div><div class="team away">Detroit Pistons</div><div class="team-info">4:00 PM PT</div></div>
+    <div class="odds-cell"><div class="ov">+1.5</div><div class="ov">-1.5</div></div>
+    <div class="odds-cell"><div class="ov">+102</div><div class="ov">-122</div></div>
+    <div class="odds-cell"><div class="ov" style="padding:9px 5px;">O 220</div></div>
+    <div class="odds-cell"><div class="sv">4:00 PM</div></div>
+  </div>
+
+  <div class="footer"><div class="ft">pvhousela.com &nbsp;&bull;&nbsp; @p.v.house &nbsp;&bull;&nbsp; 12751 Millennium Drive, Playa Vista</div><div class="ft">Odds for entertainment only &bull; Must be 21+ to wager</div></div>
+</div>
