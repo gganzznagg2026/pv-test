@@ -572,8 +572,8 @@ function gameStatus(game){
 function createGameRow(game){
 
   const featured = isFeatured(game);
-  const awayScore = game.awayScore ?? "—";
-  const homeScore = game.homeScore ?? "—";
+  const awayScore = game.awayScore !== undefined ? game.awayScore : "—";
+  const homeScore = game.homeScore !== undefined ? game.homeScore : "—";
 
   return `
     <div class="game-row ${featured ? "featured" : ""}">
@@ -790,7 +790,7 @@ async function loadGames(){
       return date.toLocaleDateString(
         "en-CA",
         {timeZone:"America/Los_Angeles"}
-      ).replaceAll("-", "");
+      ).replace(/-/g, "");
     });
 
     const responses = await Promise.all(
