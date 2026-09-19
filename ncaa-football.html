@@ -24,7 +24,7 @@ html, body {
   height: 110px;
   background: #111;
   border-bottom: 4px solid #7a3030;
-  padding: 20px 120px;
+  padding: 30px 120px 10px 120px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -72,12 +72,27 @@ html, body {
 .ticker-inner {
   display: inline-block;
   padding-left: 100%;
-  animation: scroll 110 s linear infinite;
+  animation: scroll 110s linear infinite;
+  -webkit-animation: scroll 110s linear infinite;
+  will-change: transform;
 }
 
 @keyframes scroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-100%); }
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@-webkit-keyframes scroll {
+  0% {
+    -webkit-transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(-100%);
+  }
 }
 
 .section-header {
@@ -257,7 +272,7 @@ html, body {
 <div class="section-header">
 
   <div class="section-title">
-    ● &nbsp; NCAA FOOTBALL — CURRENT GAMES
+    ● &nbsp; NCAA FOOTBALL — TODAY'S GAMES
   </div>
 
   <div>
@@ -307,11 +322,6 @@ const FEATURED_TEAMS = [
 ];
 
 const GAMES_PER_PAGE = 6;
-
-/*
-  Each group of six games stays on screen
-  for 12 seconds before advancing.
-*/
 const PAGE_DURATION = 12000;
 
 let allGames = [];
@@ -399,16 +409,14 @@ function formatAmerican(value) {
 function isFeatured(game) {
 
   return FEATURED_TEAMS.some(team =>
-
     game.home_team.includes(team) ||
     game.away_team.includes(team)
-
   );
 
 }
 
 
-/* ---------- BUILD ONE GAME ROW ---------- */
+/* ---------- BUILD GAME ROW ---------- */
 
 function createGameRow(game) {
 
@@ -423,7 +431,6 @@ function createGameRow(game) {
   const totalMarket =
     getMarket(bookmaker, "totals");
 
-
   const awaySpread =
     findOutcome(spreadMarket, game.away_team);
 
@@ -435,7 +442,6 @@ function createGameRow(game) {
 
   const homeMoney =
     findOutcome(moneyMarket, game.home_team);
-
 
   let total = "—";
 
@@ -461,9 +467,7 @@ function createGameRow(game) {
 
   }
 
-
   const featured = isFeatured(game);
-
 
   return `
 
@@ -492,7 +496,6 @@ function createGameRow(game) {
 
       </div>
 
-
       <div class="odds">
 
         <div>
@@ -515,7 +518,6 @@ function createGameRow(game) {
 
       </div>
 
-
       <div class="odds">
 
         <div>
@@ -536,11 +538,9 @@ function createGameRow(game) {
 
       </div>
 
-
       <div class="odds">
         <div>${total}</div>
       </div>
-
 
       <div class="status">
         ${formatTime(game.commence_time)}
@@ -569,11 +569,9 @@ function displayPage() {
       allGames.length / GAMES_PER_PAGE
     );
 
-
   if (currentPage >= totalPages) {
     currentPage = 0;
   }
-
 
   const start =
     currentPage * GAMES_PER_PAGE;
@@ -587,12 +585,10 @@ function displayPage() {
   const pageGames =
     allGames.slice(start, end);
 
-
   gamesDiv.innerHTML =
     pageGames
       .map(createGameRow)
       .join("");
-
 
   document
     .getElementById("pageIndicator")
@@ -601,9 +597,7 @@ function displayPage() {
       `GAMES ${start + 1}–${end} OF ${allGames.length}` +
       ` • PAGE ${currentPage + 1} OF ${totalPages}`;
 
-
   currentPage++;
-
 
   if (currentPage >= totalPages) {
     currentPage = 0;
@@ -626,7 +620,6 @@ async function loadGames() {
         cache: "no-store"
       });
 
-
     if (!response.ok) {
 
       throw new Error(
@@ -635,10 +628,8 @@ async function loadGames() {
 
     }
 
-
     const games =
       await response.json();
-
 
     if (
       !Array.isArray(games) ||
@@ -654,22 +645,11 @@ async function loadGames() {
 
     }
 
-
-    /*
-      First sort chronologically.
-    */
-
     games.sort(
       (a, b) =>
         new Date(a.commence_time) -
         new Date(b.commence_time)
     );
-
-
-    /*
-      Then promote USC / UCLA games
-      to the beginning of the board.
-    */
 
     games.sort(
       (a, b) =>
@@ -677,28 +657,15 @@ async function loadGames() {
         Number(isFeatured(a))
     );
 
-
-    /*
-      Keep ALL games.
-      Pagination handles the display.
-    */
-
     allGames = games;
 
     currentPage = 0;
 
     displayPage();
 
-
-    /*
-      Restart page rotation whenever
-      fresh sports data arrives.
-    */
-
     if (pageTimer) {
       clearInterval(pageTimer);
     }
-
 
     if (
       allGames.length >
@@ -713,11 +680,6 @@ async function loadGames() {
 
     }
 
-
-    /*
-      Build scrolling ticker.
-    */
-
     document
       .getElementById("ticker")
       .innerHTML =
@@ -730,11 +692,6 @@ async function loadGames() {
           .join(
             " &nbsp; • &nbsp; "
           );
-
-
-    /*
-      Show last refresh time.
-    */
 
     document
       .getElementById("updated")
@@ -754,7 +711,6 @@ async function loadGames() {
           )
 
         + " PT";
-
 
   } catch (error) {
 
@@ -777,14 +733,8 @@ document
   .textContent =
     formatDate(new Date());
 
-
 loadGames();
 
-
-/*
-  Ask Cloudflare for refreshed data
-  every five minutes.
-*/
 setInterval(
   loadGames,
   5 * 60 * 1000
