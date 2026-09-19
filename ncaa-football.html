@@ -72,8 +72,8 @@ html, body {
 .ticker-inner {
   display: inline-block;
   padding-left: 100%;
-  animation: scroll 160s linear infinite;
-  -webkit-animation: scroll 160s linear infinite;
+  animation: scroll 45s linear infinite;
+  -webkit-animation: scroll 45s linear infinite;
   will-change: transform;
 }
 
@@ -265,7 +265,7 @@ html, body {
 
 <div class="ticker">
   <div class="ticker-inner" id="ticker">
-    Loading today's college football...
+    Loading NCAA football headlines...
   </div>
 </div>
 
@@ -315,6 +315,9 @@ html, body {
 
 const DATA_URL =
   "https://pv-house-sports.gian-ganziano.workers.dev/ncaaf";
+
+const NEWS_URL =
+  "https://site.api.espn.com/apis/site/v2/sports/college-football/news?limit=10";
 
 const FEATURED_TEAMS = [
   "USC Trojans",
@@ -606,7 +609,61 @@ function displayPage() {
 }
 
 
+/* ---------- HEADLINES ---------- */
+
+async function loadHeadlines(){
+
+  const ticker =
+    document.getElementById(
+      "ticker"
+    );
+
+  try{
+
+    const response =
+      await fetch(
+        NEWS_URL,
+        {cache:"no-store"}
+      );
+
+    if(!response.ok){
+      throw new Error(
+        "College football news unavailable"
+      );
+    }
+
+    const data =
+      await response.json();
+
+    const headlines =
+      (data.articles || [])
+        .map(article =>
+          article.headline ||
+          article.title
+        )
+        .filter(Boolean)
+        .slice(0, 8);
+
+    ticker.textContent =
+      headlines.length
+        ? headlines.join(
+            "   •   "
+          )
+        : "NCAA FOOTBALL HEADLINES — NO RECENT STORIES";
+
+  }catch(error){
+
+    ticker.textContent =
+      "NCAA FOOTBALL HEADLINES — NEWS FEED UNAVAILABLE";
+
+  }
+
+}
+
+
 /* ---------- LOAD LIVE DATA ---------- */
+
+
 
 async function loadGames() {
 
@@ -680,18 +737,7 @@ async function loadGames() {
 
     }
 
-    document
-      .getElementById("ticker")
-      .innerHTML =
-
-        games
-          .map(game =>
-            `${game.away_team} @ ${game.home_team}` +
-            ` — ${formatTime(game.commence_time)}`
-          )
-          .join(
-            " &nbsp; • &nbsp; "
-          );
+    loadHeadlines();
 
     document
       .getElementById("updated")
@@ -733,10 +779,17 @@ document
   .textContent =
     formatDate(new Date());
 
+loadHeadlines();
+
 loadGames();
 
 setInterval(
   loadGames,
+  5 * 60 * 1000
+);
+
+setInterval(
+  loadHeadlines,
   5 * 60 * 1000
 );
 
