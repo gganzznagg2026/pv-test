@@ -16,13 +16,11 @@ html,body{
   font-family:Arial,sans-serif;
 }
 
-/* HEADER */
-
 .header{
   height:110px;
   background:#111;
   border-bottom:4px solid #7a3030;
-  padding:30px 90px 10px 165px;
+  padding:30px 120px 10px;
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -47,13 +45,11 @@ html,body{
   color:#aaa;
   font-size:18px;
   line-height:1.5;
-  min-width:330px;
+  min-width:360px;
+  padding-left:30px;
 }
 
 .live-dot{color:#5cb85c;}
-
-
-/* TICKER */
 
 .ticker{
   height:48px;
@@ -85,12 +81,9 @@ html,body{
   100%{-webkit-transform:translateX(-100%);}
 }
 
-
-/* SECTION */
-
 .section-header{
   height:65px;
-  padding:0 90px 0 165px;
+  padding:0 120px;
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -109,26 +102,26 @@ html,body{
   color:#777;
 }
 
-
-/* GRID */
-
 .column-header,
 .game-row{
   display:grid;
+
+  /* Matchup and score get most of the screen */
   grid-template-columns:
-    430px
-    185px
-    135px
-    145px
-    130px
-    190px;
-  column-gap:18px;
+    500px
+    190px
+    140px
+    140px
+    140px
+    180px;
+
+  column-gap:14px;
   align-items:center;
 }
 
 .column-header{
   height:50px;
-  padding:0 90px 0 165px;
+  padding:0 120px;
   background:#111;
   color:#666;
   font-size:14px;
@@ -141,9 +134,6 @@ html,body{
   text-align:center;
 }
 
-
-/* GAME ROWS */
-
 #games{
   height:708px;
   overflow:hidden;
@@ -151,7 +141,7 @@ html,body{
 
 .game-row{
   height:118px;
-  padding:11px 90px 11px 165px;
+  padding:11px 120px;
   border-bottom:1px solid #242424;
 }
 
@@ -165,12 +155,9 @@ html,body{
 
 .game-row.featured{
   border-left:6px solid #a04040;
-  padding-left:159px;
+  padding-left:114px;
   background:#181313;
 }
-
-
-/* TEAMS */
 
 .two-lines{
   display:flex;
@@ -194,15 +181,13 @@ html,body{
 }
 
 .feature-tag{
+  display:inline-block;
   margin-left:10px;
   padding:2px 7px;
   background:#7a3030;
   color:#f0d0d0;
   font-size:11px;
 }
-
-
-/* SCORE */
 
 .score-block{
   text-align:center;
@@ -211,13 +196,14 @@ html,body{
 .score-lines{
   display:flex;
   flex-direction:column;
-  gap:3px;
+  gap:4px;
 }
 
 .score{
-  font-size:30px;
-  line-height:31px;
+  font-size:28px;
+  line-height:32px;
   font-weight:900;
+  color:#fff;
 }
 
 .status{
@@ -227,12 +213,17 @@ html,body{
   letter-spacing:1px;
 }
 
-.status.live{color:#f0c040;}
-.status.final{color:#888;}
-.status.upcoming{color:#666;}
+.status.live{
+  color:#f0c040;
+}
 
+.status.final{
+  color:#888;
+}
 
-/* ODDS */
+.status.upcoming{
+  color:#666;
+}
 
 .odds{
   text-align:center;
@@ -249,7 +240,7 @@ html,body{
 }
 
 .odd{
-  min-width:84px;
+  min-width:88px;
   padding:5px 7px;
   background:#1b1b1b;
   border:1px solid #303030;
@@ -257,16 +248,13 @@ html,body{
 }
 
 .total{
-  min-width:88px;
+  min-width:90px;
   padding:8px;
   display:inline-block;
   background:#1b1b1b;
   border:1px solid #303030;
   border-radius:3px;
 }
-
-
-/* GAME INFO */
 
 .game-info{
   text-align:center;
@@ -282,10 +270,8 @@ html,body{
 .kickoff{
   font-size:17px;
   font-weight:800;
+  color:#fff;
 }
-
-
-/* MESSAGES */
 
 .loading,
 .error,
@@ -298,14 +284,11 @@ html,body{
   font-size:28px;
 }
 
-
-/* FOOTER */
-
 .footer{
   height:99px;
   background:#0f0f0f;
   border-top:1px solid #222;
-  padding:0 90px 0 165px;
+  padding:0 120px;
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -334,13 +317,11 @@ html,body{
 
 </div>
 
-
 <div class="ticker">
   <div class="ticker-inner" id="ticker">
     Loading NFL schedule...
   </div>
 </div>
-
 
 <div class="section-header">
 
@@ -356,7 +337,6 @@ html,body{
 
 </div>
 
-
 <div class="column-header">
   <div>MATCHUP</div>
   <div>SCORE / STATUS</div>
@@ -366,11 +346,13 @@ html,body{
   <div>GAME INFO</div>
 </div>
 
-
 <div id="games">
-  <div class="loading">Loading NFL schedule...</div>
-</div>
 
+  <div class="loading">
+    Loading NFL schedule...
+  </div>
+
+</div>
 
 <div class="footer">
 
@@ -386,7 +368,6 @@ html,body{
 
 </div>
 
-
 <script>
 
 const DATA_URL =
@@ -400,65 +381,74 @@ const FEATURED_TEAMS = [
 const GAMES_PER_PAGE = 6;
 const PAGE_DURATION = 12000;
 
-/*
-  Show the nearest NFL game block.
-  Four days is enough to encompass the
-  normal Thu/Sun/Mon NFL schedule without
-  wandering into the following weekend.
-*/
-const GAME_WINDOW_DAYS = 4;
-
 let allGames = [];
 let currentPage = 0;
 let pageTimer = null;
 
 
-/* DATE / TIME */
+/* ---------- DATE / TIME ---------- */
 
 function formatHeaderDate(date){
 
-  return date.toLocaleDateString("en-US",{
-    weekday:"short",
-    month:"short",
-    day:"numeric",
-    year:"numeric",
-    timeZone:"America/Los_Angeles"
-  }).toUpperCase();
+  return date.toLocaleDateString(
+    "en-US",
+    {
+      weekday:"short",
+      month:"short",
+      day:"numeric",
+      year:"numeric",
+      timeZone:"America/Los_Angeles"
+    }
+  ).toUpperCase();
 
 }
 
 function formatGameDate(iso){
 
-  return new Date(iso).toLocaleDateString("en-US",{
-    weekday:"short",
-    month:"short",
-    day:"numeric",
-    timeZone:"America/Los_Angeles"
-  }).toUpperCase();
+  return new Date(iso)
+    .toLocaleDateString(
+      "en-US",
+      {
+        weekday:"short",
+        month:"short",
+        day:"numeric",
+        timeZone:"America/Los_Angeles"
+      }
+    )
+    .toUpperCase();
 
 }
 
 function formatTime(iso){
 
-  return new Date(iso).toLocaleTimeString("en-US",{
-    hour:"numeric",
-    minute:"2-digit",
-    timeZone:"America/Los_Angeles"
-  }) + " PT";
+  return new Date(iso)
+    .toLocaleTimeString(
+      "en-US",
+      {
+        hour:"numeric",
+        minute:"2-digit",
+        timeZone:"America/Los_Angeles"
+      }
+    ) + " PT";
 
 }
 
 
-/* ODDS HELPERS */
+/* ---------- ODDS ---------- */
 
 function getBookmaker(game){
 
-  if(!game.bookmakers || !game.bookmakers.length){
+  if(
+    !game.bookmakers ||
+    !game.bookmakers.length
+  ){
     return null;
   }
 
-  return (
-    game.bookmakers.find(b => b.key === "draftkings") ||
+  return(
+    game.bookmakers.find(
+      b => b.key === "draftkings"
+    ) ||
     game.bookmakers[0]
   );
 
@@ -466,27 +456,34 @@ function getBookmaker(game){
 
 function getMarket(bookmaker,key){
 
-  if(!bookmaker) return null;
+  if(!bookmaker){
+    return null;
+  }
 
   return bookmaker.markets.find(
-    market => market.key === key
+    m => m.key === key
   );
 
 }
 
 function findOutcome(market,team){
 
-  if(!market) return null;
+  if(!market){
+    return null;
+  }
 
   return market.outcomes.find(
-    outcome => outcome.name === team
+    o => o.name === team
   );
 
 }
 
 function formatAmerican(value){
 
-  if(value === undefined || value === null){
+  if(
+    value === undefined ||
+    value === null
+  ){
     return "—";
   }
 
@@ -497,33 +494,43 @@ function formatAmerican(value){
 }
 
 
-/* FEATURED LA TEAMS */
+/* ---------- FEATURED ---------- */
 
 function isFeatured(game){
 
-  return FEATURED_TEAMS.some(team =>
-    game.home_team.includes(team) ||
-    game.away_team.includes(team)
+  return FEATURED_TEAMS.some(
+    team =>
+      game.home_team.includes(team) ||
+      game.away_team.includes(team)
   );
 
 }
 
 
-/* SCORES */
+/* ---------- SCORES ---------- */
 
 function getScore(game,team){
 
-  if(!game.scores || !Array.isArray(game.scores)){
+  if(
+    !game.scores ||
+    !Array.isArray(game.scores)
+  ){
     return null;
   }
 
-  const result = game.scores.find(
-    score => score.name === team
-  );
+  const result =
+    game.scores.find(
+      score => score.name === team
+    );
 
-  return result ? result.score : null;
+  if(!result){
+    return null;
+  }
+
+  return result.score;
 
 }
+
 
 function gameStatus(game){
 
@@ -557,70 +564,7 @@ function gameStatus(game){
 }
 
 
-/* CURRENT NFL GAME WINDOW */
-
-function filterCurrentWindow(games){
-
-  if(!games.length){
-    return [];
-  }
-
-  const now = new Date();
-
-  /*
-    Keep upcoming games plus any currently
-    live games.
-  */
-
-  let relevant = games.filter(game => {
-
-    const kickoff = new Date(game.commence_time);
-
-    const live =
-      game.scores &&
-      !game.completed;
-
-    return kickoff >= now || live;
-
-  });
-
-
-  /*
-    Fallback if nothing upcoming was returned.
-  */
-
-  if(!relevant.length){
-    relevant = [...games];
-  }
-
-
-  relevant.sort(
-    (a,b) =>
-      new Date(a.commence_time) -
-      new Date(b.commence_time)
-  );
-
-
-  const firstGame =
-    new Date(relevant[0].commence_time);
-
-  const windowEnd =
-    new Date(firstGame);
-
-  windowEnd.setDate(
-    windowEnd.getDate() + GAME_WINDOW_DAYS
-  );
-
-
-  return relevant.filter(
-    game =>
-      new Date(game.commence_time) <= windowEnd
-  );
-
-}
-
-
-/* BUILD GAME ROW */
+/* ---------- GAME ROW ---------- */
 
 function createGameRow(game){
 
@@ -638,28 +582,46 @@ function createGameRow(game){
 
 
   const awaySpread =
-    findOutcome(spreadMarket,game.away_team);
+    findOutcome(
+      spreadMarket,
+      game.away_team
+    );
 
   const homeSpread =
-    findOutcome(spreadMarket,game.home_team);
+    findOutcome(
+      spreadMarket,
+      game.home_team
+    );
 
   const awayMoney =
-    findOutcome(moneyMarket,game.away_team);
+    findOutcome(
+      moneyMarket,
+      game.away_team
+    );
 
   const homeMoney =
-    findOutcome(moneyMarket,game.home_team);
+    findOutcome(
+      moneyMarket,
+      game.home_team
+    );
 
 
   let total = "—";
 
-  if(totalMarket && totalMarket.outcomes){
+  if(
+    totalMarket &&
+    totalMarket.outcomes
+  ){
 
     const over =
       totalMarket.outcomes.find(
-        outcome => outcome.name === "Over"
+        o => o.name === "Over"
       );
 
-    if(over && over.point !== undefined){
+    if(
+      over &&
+      over.point !== undefined
+    ){
       total = over.point;
     }
 
@@ -667,10 +629,17 @@ function createGameRow(game){
 
 
   const awayScore =
-    getScore(game,game.away_team);
+    getScore(
+      game,
+      game.away_team
+    );
 
   const homeScore =
-    getScore(game,game.home_team);
+    getScore(
+      game,
+      game.home_team
+    );
+
 
   const status =
     gameStatus(game);
@@ -681,133 +650,171 @@ function createGameRow(game){
 
   return `
 
-    <div class="game-row ${featured ? "featured" : ""}">
+  <div class="game-row ${featured ? "featured" : ""}">
 
 
-      <div class="two-lines">
+    <!-- MATCHUP -->
 
-        <div class="team-line away">
+    <div class="two-lines">
 
-          ${game.away_team}
+      <div class="team-line away">
+
+        ${game.away_team}
+
+        ${
+          featured
+          ? '<span class="feature-tag">LA</span>'
+          : ''
+        }
+
+      </div>
+
+      <div class="team-line">
+
+        ${game.home_team}
+
+      </div>
+
+    </div>
+
+
+    <!-- SCORE -->
+
+    <div class="score-block">
+
+      <div class="score-lines">
+
+        <div class="score">
+          ${awayScore !== null
+            ? awayScore
+            : "—"}
+        </div>
+
+        <div class="score">
+          ${homeScore !== null
+            ? homeScore
+            : "—"}
+        </div>
+
+      </div>
+
+      <div class="status ${status.className}">
+        ${status.label}
+      </div>
+
+    </div>
+
+
+    <!-- SPREAD -->
+
+    <div class="odds">
+
+      <div class="odds-lines">
+
+        <div class="odd">
 
           ${
-            featured
-              ? '<span class="feature-tag">LA</span>'
-              : ''
+            awaySpread &&
+            awaySpread.point !== undefined
+            ? formatAmerican(
+                awaySpread.point
+              )
+            : "—"
           }
 
         </div>
 
-        <div class="team-line">
-          ${game.home_team}
-        </div>
+        <div class="odd">
 
-      </div>
-
-
-      <div class="score-block">
-
-        <div class="score-lines">
-
-          <div class="score">
-            ${awayScore !== null ? awayScore : "—"}
-          </div>
-
-          <div class="score">
-            ${homeScore !== null ? homeScore : "—"}
-          </div>
-
-        </div>
-
-        <div class="status ${status.className}">
-          ${status.label}
-        </div>
-
-      </div>
-
-
-      <div class="odds">
-
-        <div class="odds-lines">
-
-          <div class="odd">
-            ${
-              awaySpread &&
-              awaySpread.point !== undefined
-                ? formatAmerican(awaySpread.point)
-                : "—"
-            }
-          </div>
-
-          <div class="odd">
-            ${
-              homeSpread &&
-              homeSpread.point !== undefined
-                ? formatAmerican(homeSpread.point)
-                : "—"
-            }
-          </div>
+          ${
+            homeSpread &&
+            homeSpread.point !== undefined
+            ? formatAmerican(
+                homeSpread.point
+              )
+            : "—"
+          }
 
         </div>
 
       </div>
-
-
-      <div class="odds">
-
-        <div class="odds-lines">
-
-          <div class="odd">
-            ${
-              awayMoney
-                ? formatAmerican(awayMoney.price)
-                : "—"
-            }
-          </div>
-
-          <div class="odd">
-            ${
-              homeMoney
-                ? formatAmerican(homeMoney.price)
-                : "—"
-            }
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <div class="odds">
-
-        <div class="total">
-          ${total === "—" ? "—" : "O " + total}
-        </div>
-
-      </div>
-
-
-      <div class="game-info">
-
-        <div class="game-date">
-          ${formatGameDate(game.commence_time)}
-        </div>
-
-        <div class="kickoff">
-          ${formatTime(game.commence_time)}
-        </div>
-
-      </div>
-
 
     </div>
+
+
+    <!-- MONEYLINE -->
+
+    <div class="odds">
+
+      <div class="odds-lines">
+
+        <div class="odd">
+
+          ${
+            awayMoney
+            ? formatAmerican(
+                awayMoney.price
+              )
+            : "—"
+          }
+
+        </div>
+
+        <div class="odd">
+
+          ${
+            homeMoney
+            ? formatAmerican(
+                homeMoney.price
+              )
+            : "—"
+          }
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- OVER UNDER -->
+
+    <div class="odds">
+
+      <div class="total">
+        O ${total}
+      </div>
+
+    </div>
+
+
+    <!-- GAME INFO -->
+
+    <div class="game-info">
+
+      <div class="game-date">
+        ${formatGameDate(
+          game.commence_time
+        )}
+      </div>
+
+      <div class="kickoff">
+        ${formatTime(
+          game.commence_time
+        )}
+      </div>
+
+    </div>
+
+
+  </div>
 
   `;
 
 }
 
 
-/* PAGINATION */
+/* ---------- PAGES ---------- */
 
 function displayPage(){
 
@@ -816,29 +823,38 @@ function displayPage(){
   }
 
   const gamesDiv =
-    document.getElementById("games");
+    document.getElementById(
+      "games"
+    );
 
   const totalPages =
     Math.ceil(
-      allGames.length / GAMES_PER_PAGE
+      allGames.length /
+      GAMES_PER_PAGE
     );
 
-  if(currentPage >= totalPages){
+  if(
+    currentPage >= totalPages
+  ){
     currentPage = 0;
   }
 
   const start =
-    currentPage * GAMES_PER_PAGE;
+    currentPage *
+    GAMES_PER_PAGE;
 
   const end =
     Math.min(
-      start + GAMES_PER_PAGE,
+      start +
+      GAMES_PER_PAGE,
       allGames.length
     );
 
   const pageGames =
-    allGames.slice(start,end);
-
+    allGames.slice(
+      start,
+      end
+    );
 
   gamesDiv.innerHTML =
     pageGames
@@ -847,7 +863,9 @@ function displayPage(){
 
 
   document
-    .getElementById("pageIndicator")
+    .getElementById(
+      "pageIndicator"
+    )
     .textContent =
 
       `GAMES ${start + 1}–${end} OF ${allGames.length}` +
@@ -856,26 +874,33 @@ function displayPage(){
 
   currentPage++;
 
-  if(currentPage >= totalPages){
+  if(
+    currentPage >= totalPages
+  ){
     currentPage = 0;
   }
 
 }
 
 
-/* LOAD DATA */
+/* ---------- LOAD ---------- */
 
 async function loadGames(){
 
   const gamesDiv =
-    document.getElementById("games");
+    document.getElementById(
+      "games"
+    );
 
   try{
 
     const response =
-      await fetch(DATA_URL,{
-        cache:"no-store"
-      });
+      await fetch(
+        DATA_URL,
+        {
+          cache:"no-store"
+        }
+      );
 
 
     if(!response.ok){
@@ -887,13 +912,13 @@ async function loadGames(){
     }
 
 
-    const rawGames =
+    const games =
       await response.json();
 
 
     if(
-      !Array.isArray(rawGames) ||
-      !rawGames.length
+      !Array.isArray(games) ||
+      !games.length
     ){
 
       gamesDiv.innerHTML =
@@ -907,21 +932,17 @@ async function loadGames(){
 
 
     /*
-      Restrict to current NFL game window.
-    */
-
-    const games =
-      filterCurrentWindow(rawGames);
-
-
-    /*
-      Final strict chronological order.
+      Strict chronological order.
     */
 
     games.sort(
       (a,b) =>
-        new Date(a.commence_time) -
-        new Date(b.commence_time)
+        new Date(
+          a.commence_time
+        ) -
+        new Date(
+          b.commence_time
+        )
     );
 
 
@@ -933,11 +954,16 @@ async function loadGames(){
 
 
     if(pageTimer){
-      clearInterval(pageTimer);
+      clearInterval(
+        pageTimer
+      );
     }
 
 
-    if(allGames.length > GAMES_PER_PAGE){
+    if(
+      allGames.length >
+      GAMES_PER_PAGE
+    ){
 
       pageTimer =
         setInterval(
@@ -948,12 +974,12 @@ async function loadGames(){
     }
 
 
-    /*
-      TICKER
-    */
+    /* TICKER */
 
     document
-      .getElementById("ticker")
+      .getElementById(
+        "ticker"
+      )
       .innerHTML =
 
         games
@@ -969,12 +995,12 @@ async function loadGames(){
           );
 
 
-    /*
-      UPDATED TIME
-    */
+    /* UPDATED */
 
     document
-      .getElementById("updated")
+      .getElementById(
+        "updated"
+      )
       .textContent =
 
         "UPDATED " +
@@ -985,8 +1011,50 @@ async function loadGames(){
             {
               hour:"numeric",
               minute:"2-digit",
-              timeZone:"America/Los_Angeles"
+              timeZone:
+                "America/Los_Angeles"
             }
           )
 
-        +
+        + " PT";
+
+
+  }catch(error){
+
+    console.error(error);
+
+    gamesDiv.innerHTML =
+      '<div class="error">' +
+      'Unable to load NFL data.' +
+      '</div>';
+
+  }
+
+}
+
+
+/* ---------- START ---------- */
+
+document
+  .getElementById(
+    "dateDisplay"
+  )
+  .textContent =
+    formatHeaderDate(
+      new Date()
+    );
+
+
+loadGames();
+
+
+setInterval(
+  loadGames,
+  5 * 60 * 1000
+);
+
+</script>
+
+</body>
+</html>
+``
