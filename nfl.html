@@ -319,7 +319,7 @@ html,body{
 
 <div class="ticker">
   <div class="ticker-inner" id="ticker">
-    Loading NFL schedule...
+    Loading NFL headlines...
   </div>
 </div>
 
@@ -372,6 +372,9 @@ html,body{
 
 const DATA_URL =
   "https://pv-house-sports.gian-ganziano.workers.dev/nfl";
+
+const NEWS_URL =
+  "https://site.api.espn.com/apis/site/v2/sports/football/nfl/news?limit=10";
 
 const FEATURED_TEAMS = [
   "Los Angeles Rams",
@@ -883,7 +886,63 @@ function displayPage(){
 }
 
 
+/* ---------- NFL HEADLINES ---------- */
+
+async function loadHeadlines(){
+
+  const ticker =
+    document.getElementById(
+      "ticker"
+    );
+
+  try{
+
+    const response =
+      await fetch(
+        NEWS_URL,
+        {
+          cache:"no-store"
+        }
+      );
+
+    if(!response.ok){
+      throw new Error(
+        "NFL news unavailable"
+      );
+    }
+
+    const data =
+      await response.json();
+
+    const headlines =
+      (data.articles || [])
+        .map(article =>
+          article.headline ||
+          article.title
+        )
+        .filter(Boolean)
+        .slice(0, 8);
+
+    ticker.textContent =
+      headlines.length
+        ? headlines.join(
+            "   •   "
+          )
+        : "NFL HEADLINES — NO RECENT STORIES";
+
+  }catch(error){
+
+    ticker.textContent =
+      "NFL HEADLINES — NEWS FEED UNAVAILABLE";
+
+  }
+
+}
+
+
 /* ---------- LOAD ---------- */
+
+
 
 async function loadGames(){
 
@@ -976,23 +1035,7 @@ async function loadGames(){
 
     /* TICKER */
 
-    document
-      .getElementById(
-        "ticker"
-      )
-      .innerHTML =
-
-        games
-          .map(game =>
-
-            `${formatGameDate(game.commence_time)} — ` +
-            `${game.away_team} @ ${game.home_team}` +
-            ` — ${formatTime(game.commence_time)}`
-
-          )
-          .join(
-            " &nbsp; • &nbsp; "
-          );
+    loadHeadlines();
 
 
     /* UPDATED */
@@ -1045,11 +1088,18 @@ document
     );
 
 
+loadHeadlines();
+
 loadGames();
 
 
 setInterval(
   loadGames,
+  5 * 60 * 1000
+);
+
+setInterval(
+  loadHeadlines,
   5 * 60 * 1000
 );
 
