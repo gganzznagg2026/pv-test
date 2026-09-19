@@ -5,241 +5,295 @@
 <meta name="viewport" content="width=1920, initial-scale=1">
 
 <style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+*{box-sizing:border-box;margin:0;padding:0;}
+
+html,body{
+  width:1920px;
+  height:1080px;
+  overflow:hidden;
+  background:#0a0a0a;
+  color:#fff;
+  font-family:Arial,sans-serif;
 }
 
-html, body {
-  width: 1920px;
-  height: 1080px;
-  overflow: hidden;
-  background: #0a0a0a;
-  color: #fff;
-  font-family: Arial, sans-serif;
+.header{
+  height:110px;
+  background:#111;
+  border-bottom:4px solid #7a3030;
+  padding:30px 80px 10px 165px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 }
 
-.header {
-  height: 110px;
-  background: #111;
-  border-bottom: 4px solid #7a3030;
-  padding: 30px 120px 10px 120px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.logo{
+  font-size:38px;
+  font-weight:900;
+  letter-spacing:3px;
+  white-space:nowrap;
 }
 
-.logo {
-  font-size: 38px;
-  font-weight: 900;
-  letter-spacing: 3px;
-  white-space: nowrap;
+.logo-sub{
+  font-size:18px;
+  color:#777;
+  font-weight:400;
+  letter-spacing:1px;
 }
 
-.logo-sub {
-  font-size: 18px;
-  color: #777;
-  font-weight: 400;
-  letter-spacing: 1px;
+.header-right{
+  text-align:right;
+  color:#aaa;
+  font-size:18px;
+  line-height:1.5;
+  min-width:360px;
+  padding-left:30px;
 }
 
-.header-right {
-  text-align: right;
-  color: #aaa;
-  font-size: 18px;
-  line-height: 1.5;
-  min-width: 360px;
-  padding-left: 30px;
+.live-dot{color:#5cb85c;}
+
+.ticker{
+  height:48px;
+  background:#7a3030;
+  color:#f5dddd;
+  font-size:20px;
+  font-weight:700;
+  overflow:hidden;
+  white-space:nowrap;
+  display:flex;
+  align-items:center;
 }
 
-.live {
-  color: #5cb85c;
+.ticker-inner{
+  display:inline-block;
+  padding-left:100%;
+  animation:scroll 45s linear infinite;
+  -webkit-animation:scroll 45s linear infinite;
+  will-change:transform;
 }
 
-.ticker {
-  height: 48px;
-  background: #7a3030;
-  color: #f5dddd;
-  font-size: 20px;
-  font-weight: 700;
-  overflow: hidden;
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
+@keyframes scroll{
+  0%{transform:translateX(0);}
+  100%{transform:translateX(-100%);}
 }
 
-.ticker-inner {
-  display: inline-block;
-  padding-left: 100%;
-  animation: scroll 45s linear infinite;
-  -webkit-animation: scroll 45s linear infinite;
-  will-change: transform;
+@-webkit-keyframes scroll{
+  0%{-webkit-transform:translateX(0);}
+  100%{-webkit-transform:translateX(-100%);}
 }
 
-@keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
+.section-header{
+  height:65px;
+  padding:0 80px 0 165px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:#151515;
+  border-bottom:2px solid #7a3030;
 }
 
-@-webkit-keyframes scroll {
-  0% {
-    -webkit-transform: translateX(0);
-  }
-  100% {
-    -webkit-transform: translateX(-100%);
-  }
+.section-title{
+  font-size:25px;
+  font-weight:800;
+  letter-spacing:2px;
 }
 
-.section-header {
-  height: 65px;
-  padding: 0 120px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #151515;
-  border-bottom: 2px solid #7a3030;
-}
-
-.section-title {
-  font-size: 25px;
-  font-weight: 800;
-  letter-spacing: 2px;
-}
-
-.updated {
-  font-size: 15px;
-  color: #777;
+.updated{
+  font-size:15px;
+  color:#777;
 }
 
 .column-header,
-.game-row {
-  display: grid;
-  grid-template-columns: 650px 155px 155px 155px 155px;
-  column-gap: 18px;
-  align-items: center;
+.game-row{
+  display:grid;
+
+  /* Matchup and score get most of the screen */
+  grid-template-columns:
+    500px
+    190px
+    140px
+    140px
+    140px
+    180px;
+
+  column-gap:14px;
+  align-items:center;
 }
 
-.column-header {
-  height: 50px;
-  padding: 0 120px;
-  background: #111;
-  color: #666;
-  font-size: 14px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+.column-header{
+  height:50px;
+  padding:0 80px 0 165px;
+  background:#111;
+  color:#666;
+  font-size:14px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:1px;
 }
 
-.column-header div:not(:first-child) {
-  text-align: center;
+.column-header div:not(:first-child){
+  text-align:center;
 }
 
-#games {
-  height: 708px;
-  overflow: hidden;
+#games{
+  height:708px;
+  overflow:hidden;
 }
 
-.game-row {
-  height: 118px;
-  padding: 11px 120px;
-  border-bottom: 1px solid #242424;
+.game-row{
+  height:118px;
+  padding:11px 80px 11px 165px;
+  border-bottom:1px solid #242424;
 }
 
-.game-row:nth-child(odd) {
-  background: #0d0d0d;
+.game-row:nth-child(odd){
+  background:#0d0d0d;
 }
 
-.game-row:nth-child(even) {
-  background: #151515;
+.game-row:nth-child(even){
+  background:#151515;
 }
 
-.game-row.featured {
-  border-left: 6px solid #a04040;
-  padding-left: 114px;
-  background: #181313;
+.game-row.featured{
+  border-left:6px solid #a04040;
+  padding-left:159px;
+  background:#181313;
 }
 
-.teams {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
+.two-lines{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:9px;
 }
 
-.team {
-  font-size: 22px;
-  font-weight: 800;
+.team-line{
+  height:27px;
+  display:flex;
+  align-items:center;
+  font-size:21px;
+  font-weight:800;
+  white-space:nowrap;
 }
 
-.away {
-  color: #bbb;
-  font-weight: 500;
+.team-line.away{
+  color:#bbb;
+  font-weight:500;
 }
 
-.game-time {
-  color: #d8b84a;
-  font-size: 15px;
+.feature-tag{
+  display:inline-block;
+  margin-left:10px;
+  padding:2px 7px;
+  background:#7a3030;
+  color:#f0d0d0;
+  font-size:11px;
 }
 
-.feature-tag {
-  display: inline-block;
-  margin-left: 10px;
-  padding: 2px 7px;
-  background: #7a3030;
-  color: #f0d0d0;
-  font-size: 11px;
-  vertical-align: middle;
+.score-block{
+  text-align:center;
 }
 
-.odds {
-  text-align: center;
-  font-size: 19px;
-  font-weight: 800;
-  color: #f0c040;
+.score-lines{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
 }
 
-.odds div {
-  margin: 3px auto;
-  padding: 6px 8px;
-  min-width: 100px;
-  display: inline-block;
-  background: #1b1b1b;
-  border: 1px solid #303030;
-  border-radius: 3px;
+.score{
+  font-size:28px;
+  line-height:32px;
+  font-weight:900;
+  color:#fff;
 }
 
-.status {
-  text-align: center;
-  font-size: 18px;
-  font-weight: 800;
-  color: #fff;
+.status{
+  margin-top:3px;
+  font-size:13px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.status.live{
+  color:#f0c040;
+}
+
+.status.final{
+  color:#888;
+}
+
+.status.upcoming{
+  color:#666;
+}
+
+.odds{
+  text-align:center;
+  font-size:18px;
+  font-weight:800;
+  color:#f0c040;
+}
+
+.odds-lines{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+  align-items:center;
+}
+
+.odd{
+  min-width:88px;
+  padding:5px 7px;
+  background:#1b1b1b;
+  border:1px solid #303030;
+  border-radius:3px;
+}
+
+.total{
+  min-width:90px;
+  padding:8px;
+  display:inline-block;
+  background:#1b1b1b;
+  border:1px solid #303030;
+  border-radius:3px;
+}
+
+.game-info{
+  text-align:center;
+}
+
+.game-date{
+  font-size:15px;
+  font-weight:800;
+  color:#bbb;
+  margin-bottom:7px;
+}
+
+.kickoff{
+  font-size:17px;
+  font-weight:800;
+  color:#fff;
 }
 
 .loading,
 .error,
-.no-games {
-  height: 500px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #777;
-  font-size: 28px;
+.no-games{
+  height:500px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#777;
+  font-size:28px;
 }
 
-.footer {
-  height: 99px;
-  background: #0f0f0f;
-  border-top: 1px solid #222;
-  padding: 0 120px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: #555;
-  font-size: 14px;
+.footer{
+  height:99px;
+  background:#0f0f0f;
+  border-top:1px solid #222;
+  padding:0 80px 0 165px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  color:#555;
+  font-size:14px;
 }
 </style>
 </head>
@@ -256,8 +310,8 @@ html, body {
   </div>
 
   <div class="header-right">
-    <span class="live">●</span>
-    LIVE COLLEGE FOOTBALL ODDS<br>
+    <span class="live-dot">●</span>
+    LIVE NCAA FOOTBALL BOARD<br>
     <span id="dateDisplay"></span>
   </div>
 
@@ -265,14 +319,14 @@ html, body {
 
 <div class="ticker">
   <div class="ticker-inner" id="ticker">
-    Loading NCAA football headlines...
+    Loading NCAA FOOTBALL headlines...
   </div>
 </div>
 
 <div class="section-header">
 
   <div class="section-title">
-    ● &nbsp; NCAA FOOTBALL — TODAY'S GAMES
+    ● &nbsp; NCAA FOOTBALL — GAME SCHEDULE
   </div>
 
   <div>
@@ -285,16 +339,19 @@ html, body {
 
 <div class="column-header">
   <div>MATCHUP</div>
+  <div>SCORE / STATUS</div>
   <div>SPREAD</div>
   <div>MONEYLINE</div>
-  <div>OVER / UNDER</div>
-  <div>KICKOFF</div>
+  <div>O / U</div>
+  <div>GAME INFO</div>
 </div>
 
 <div id="games">
+
   <div class="loading">
-    Loading current NCAA Football games...
+    Loading NCAA FOOTBALL scores...
   </div>
+
 </div>
 
 <div class="footer">
@@ -334,69 +391,102 @@ let pageTimer = null;
 
 /* ---------- DATE / TIME ---------- */
 
-function formatDate(date) {
+function formatHeaderDate(date){
 
-  return date.toLocaleDateString("en-US", {
-    weekday: "short",
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-    timeZone: "America/Los_Angeles"
-  }).toUpperCase();
-
-}
-
-function formatTime(iso) {
-
-  return new Date(iso).toLocaleTimeString("en-US", {
-    hour: "numeric",
-    minute: "2-digit",
-    timeZone: "America/Los_Angeles"
-  }) + " PT";
+  return date.toLocaleDateString(
+    "en-US",
+    {
+      weekday:"short",
+      month:"short",
+      day:"numeric",
+      year:"numeric",
+      timeZone:"America/Los_Angeles"
+    }
+  ).toUpperCase();
 
 }
 
+function formatGameDate(iso){
 
-/* ---------- ODDS HELPERS ---------- */
+  return new Date(iso)
+    .toLocaleDateString(
+      "en-US",
+      {
+        weekday:"short",
+        month:"short",
+        day:"numeric",
+        timeZone:"America/Los_Angeles"
+      }
+    )
+    .toUpperCase();
 
-function getBookmaker(game) {
+}
 
-  if (!game.bookmakers || !game.bookmakers.length) {
+function formatTime(iso){
+
+  return new Date(iso)
+    .toLocaleTimeString(
+      "en-US",
+      {
+        hour:"numeric",
+        minute:"2-digit",
+        timeZone:"America/Los_Angeles"
+      }
+    ) + " PT";
+
+}
+
+
+/* ---------- ODDS ---------- */
+
+function getBookmaker(game){
+
+  if(
+    !game.bookmakers ||
+    !game.bookmakers.length
+  ){
     return null;
   }
 
-  return (
+  return(
     game.bookmakers.find(
-      bookmaker => bookmaker.key === "draftkings"
+      b => b.key === "draftkings"
     ) ||
     game.bookmakers[0]
   );
 
 }
 
-function getMarket(bookmaker, key) {
+function getMarket(bookmaker,key){
 
-  if (!bookmaker) return null;
+  if(!bookmaker){
+    return null;
+  }
 
   return bookmaker.markets.find(
-    market => market.key === key
+    m => m.key === key
   );
 
 }
 
-function findOutcome(market, team) {
+function findOutcome(market,team){
 
-  if (!market) return null;
+  if(!market){
+    return null;
+  }
 
   return market.outcomes.find(
-    outcome => outcome.name === team
+    o => o.name === team
   );
 
 }
 
-function formatAmerican(value) {
+function formatAmerican(value){
 
-  if (value === undefined || value === null) {
+  if(
+    value === undefined ||
+    value === null
+  ){
     return "—";
   }
 
@@ -407,209 +497,396 @@ function formatAmerican(value) {
 }
 
 
-/* ---------- FEATURED TEAMS ---------- */
+/* ---------- FEATURED ---------- */
 
-function isFeatured(game) {
+function isFeatured(game){
 
-  return FEATURED_TEAMS.some(team =>
-    game.home_team.includes(team) ||
-    game.away_team.includes(team)
+  return FEATURED_TEAMS.some(
+    team =>
+      game.home_team.includes(team) ||
+      game.away_team.includes(team)
   );
 
 }
 
 
-/* ---------- BUILD GAME ROW ---------- */
+/* ---------- SCORES ---------- */
 
-function createGameRow(game) {
+function getScore(game,team){
 
-  const bookmaker = getBookmaker(game);
+  if(
+    !game.scores ||
+    !Array.isArray(game.scores)
+  ){
+    return null;
+  }
+
+  const result =
+    game.scores.find(
+      score => score.name === team
+    );
+
+  if(!result){
+    return null;
+  }
+
+  return result.score;
+
+}
+
+
+function gameStatus(game){
+
+  if(game.completed){
+
+    return {
+      label:"FINAL",
+      className:"final"
+    };
+
+  }
+
+  if(
+    game.scores &&
+    Array.isArray(game.scores) &&
+    game.scores.length
+  ){
+
+    return {
+      label:"LIVE",
+      className:"live"
+    };
+
+  }
+
+  return {
+    label:"UPCOMING",
+    className:"upcoming"
+  };
+
+}
+
+
+/* ---------- GAME ROW ---------- */
+
+function createGameRow(game){
+
+  const bookmaker =
+    getBookmaker(game);
 
   const spreadMarket =
-    getMarket(bookmaker, "spreads");
+    getMarket(bookmaker,"spreads");
 
   const moneyMarket =
-    getMarket(bookmaker, "h2h");
+    getMarket(bookmaker,"h2h");
 
   const totalMarket =
-    getMarket(bookmaker, "totals");
+    getMarket(bookmaker,"totals");
+
 
   const awaySpread =
-    findOutcome(spreadMarket, game.away_team);
+    findOutcome(
+      spreadMarket,
+      game.away_team
+    );
 
   const homeSpread =
-    findOutcome(spreadMarket, game.home_team);
+    findOutcome(
+      spreadMarket,
+      game.home_team
+    );
 
   const awayMoney =
-    findOutcome(moneyMarket, game.away_team);
+    findOutcome(
+      moneyMarket,
+      game.away_team
+    );
 
   const homeMoney =
-    findOutcome(moneyMarket, game.home_team);
+    findOutcome(
+      moneyMarket,
+      game.home_team
+    );
+
 
   let total = "—";
 
-  if (
+  if(
     totalMarket &&
-    totalMarket.outcomes &&
-    totalMarket.outcomes.length
-  ) {
+    totalMarket.outcomes
+  ){
 
     const over =
       totalMarket.outcomes.find(
-        outcome => outcome.name === "Over"
+        o => o.name === "Over"
       );
 
-    if (
+    if(
       over &&
       over.point !== undefined
-    ) {
-
-      total = "O " + over.point;
-
+    ){
+      total = over.point;
     }
 
   }
 
-  const featured = isFeatured(game);
+
+  const awayScore =
+    getScore(
+      game,
+      game.away_team
+    );
+
+  const homeScore =
+    getScore(
+      game,
+      game.home_team
+    );
+
+
+  const status =
+    gameStatus(game);
+
+  const featured =
+    isFeatured(game);
+
 
   return `
 
-    <div class="game-row ${featured ? "featured" : ""}">
+  <div class="game-row ${featured ? "featured" : ""}">
 
-      <div class="teams">
 
-        <div class="team away">
+    <!-- MATCHUP -->
 
-          ${game.away_team}
+    <div class="two-lines">
 
-          ${featured
-            ? '<span class="feature-tag">FEATURED</span>'
-            : ''
-          }
+      <div class="team-line away">
 
-        </div>
+        ${game.away_team}
 
-        <div class="team">
-          @ ${game.home_team}
-        </div>
-
-        <div class="game-time">
-          ${formatTime(game.commence_time)}
-        </div>
+        ${
+          featured
+          ? '<span class="feature-tag">LA</span>'
+          : ''
+        }
 
       </div>
 
-      <div class="odds">
+      <div class="team-line">
 
-        <div>
-          ${
-            awaySpread &&
-            awaySpread.point !== undefined
-              ? formatAmerican(awaySpread.point)
-              : "—"
-          }
-        </div>
+        ${game.home_team}
 
-        <div>
-          ${
-            homeSpread &&
-            homeSpread.point !== undefined
-              ? formatAmerican(homeSpread.point)
-              : "—"
-          }
-        </div>
-
-      </div>
-
-      <div class="odds">
-
-        <div>
-          ${
-            awayMoney
-              ? formatAmerican(awayMoney.price)
-              : "—"
-          }
-        </div>
-
-        <div>
-          ${
-            homeMoney
-              ? formatAmerican(homeMoney.price)
-              : "—"
-          }
-        </div>
-
-      </div>
-
-      <div class="odds">
-        <div>${total}</div>
-      </div>
-
-      <div class="status">
-        ${formatTime(game.commence_time)}
       </div>
 
     </div>
+
+
+    <!-- SCORE -->
+
+    <div class="score-block">
+
+      <div class="score-lines">
+
+        <div class="score">
+          ${awayScore !== null
+            ? awayScore
+            : "—"}
+        </div>
+
+        <div class="score">
+          ${homeScore !== null
+            ? homeScore
+            : "—"}
+        </div>
+
+      </div>
+
+      <div class="status ${status.className}">
+        ${status.label}
+      </div>
+
+    </div>
+
+
+    <!-- SPREAD -->
+
+    <div class="odds">
+
+      <div class="odds-lines">
+
+        <div class="odd">
+
+          ${
+            awaySpread &&
+            awaySpread.point !== undefined
+            ? formatAmerican(
+                awaySpread.point
+              )
+            : "—"
+          }
+
+        </div>
+
+        <div class="odd">
+
+          ${
+            homeSpread &&
+            homeSpread.point !== undefined
+            ? formatAmerican(
+                homeSpread.point
+              )
+            : "—"
+          }
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- MONEYLINE -->
+
+    <div class="odds">
+
+      <div class="odds-lines">
+
+        <div class="odd">
+
+          ${
+            awayMoney
+            ? formatAmerican(
+                awayMoney.price
+              )
+            : "—"
+          }
+
+        </div>
+
+        <div class="odd">
+
+          ${
+            homeMoney
+            ? formatAmerican(
+                homeMoney.price
+              )
+            : "—"
+          }
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- OVER UNDER -->
+
+    <div class="odds">
+
+      <div class="total">
+        O ${total}
+      </div>
+
+    </div>
+
+
+    <!-- GAME INFO -->
+
+    <div class="game-info">
+
+      <div class="game-date">
+        ${formatGameDate(
+          game.commence_time
+        )}
+      </div>
+
+      <div class="kickoff">
+        ${formatTime(
+          game.commence_time
+        )}
+      </div>
+
+    </div>
+
+
+  </div>
 
   `;
 
 }
 
 
-/* ---------- PAGINATION ---------- */
+/* ---------- PAGES ---------- */
 
-function displayPage() {
+function displayPage(){
 
-  if (!allGames.length) {
+  if(!allGames.length){
     return;
   }
 
   const gamesDiv =
-    document.getElementById("games");
+    document.getElementById(
+      "games"
+    );
 
   const totalPages =
     Math.ceil(
-      allGames.length / GAMES_PER_PAGE
+      allGames.length /
+      GAMES_PER_PAGE
     );
 
-  if (currentPage >= totalPages) {
+  if(
+    currentPage >= totalPages
+  ){
     currentPage = 0;
   }
 
   const start =
-    currentPage * GAMES_PER_PAGE;
+    currentPage *
+    GAMES_PER_PAGE;
 
   const end =
     Math.min(
-      start + GAMES_PER_PAGE,
+      start +
+      GAMES_PER_PAGE,
       allGames.length
     );
 
   const pageGames =
-    allGames.slice(start, end);
+    allGames.slice(
+      start,
+      end
+    );
 
   gamesDiv.innerHTML =
     pageGames
       .map(createGameRow)
       .join("");
 
+
   document
-    .getElementById("pageIndicator")
+    .getElementById(
+      "pageIndicator"
+    )
     .textContent =
 
       `GAMES ${start + 1}–${end} OF ${allGames.length}` +
       ` • PAGE ${currentPage + 1} OF ${totalPages}`;
 
+
   currentPage++;
 
-  if (currentPage >= totalPages) {
+  if(
+    currentPage >= totalPages
+  ){
     currentPage = 0;
   }
 
 }
 
 
-/* ---------- HEADLINES ---------- */
+/* ---------- NCAA FOOTBALL HEADLINES ---------- */
 
 async function loadHeadlines(){
 
@@ -623,12 +900,14 @@ async function loadHeadlines(){
     const response =
       await fetch(
         NEWS_URL,
-        {cache:"no-store"}
+        {
+          cache:"no-store"
+        }
       );
 
     if(!response.ok){
       throw new Error(
-        "College football news unavailable"
+        "NCAA FOOTBALL news unavailable"
       );
     }
 
@@ -661,23 +940,29 @@ async function loadHeadlines(){
 }
 
 
-/* ---------- LOAD LIVE DATA ---------- */
+/* ---------- LOAD ---------- */
 
 
 
-async function loadGames() {
+async function loadGames(){
 
   const gamesDiv =
-    document.getElementById("games");
+    document.getElementById(
+      "games"
+    );
 
-  try {
+  try{
 
     const response =
-      await fetch(DATA_URL, {
-        cache: "no-store"
-      });
+      await fetch(
+        DATA_URL,
+        {
+          cache:"no-store"
+        }
+      );
 
-    if (!response.ok) {
+
+    if(!response.ok){
 
       throw new Error(
         "Sports data unavailable"
@@ -685,34 +970,40 @@ async function loadGames() {
 
     }
 
+
     const games =
       await response.json();
 
-    if (
+
+    if(
       !Array.isArray(games) ||
       !games.length
-    ) {
+    ){
 
       gamesDiv.innerHTML =
         '<div class="no-games">' +
-        'No current NCAA Football games available.' +
+        'No NCAA FOOTBALL games available.' +
         '</div>';
 
       return;
 
     }
 
-    games.sort(
-      (a, b) =>
-        new Date(a.commence_time) -
-        new Date(b.commence_time)
-    );
+
+    /*
+      Strict chronological order.
+    */
 
     games.sort(
-      (a, b) =>
-        Number(isFeatured(b)) -
-        Number(isFeatured(a))
+      (a,b) =>
+        new Date(
+          a.commence_time
+        ) -
+        new Date(
+          b.commence_time
+        )
     );
+
 
     allGames = games;
 
@@ -720,14 +1011,18 @@ async function loadGames() {
 
     displayPage();
 
-    if (pageTimer) {
-      clearInterval(pageTimer);
+
+    if(pageTimer){
+      clearInterval(
+        pageTimer
+      );
     }
 
-    if (
+
+    if(
       allGames.length >
       GAMES_PER_PAGE
-    ) {
+    ){
 
       pageTimer =
         setInterval(
@@ -737,10 +1032,18 @@ async function loadGames() {
 
     }
 
+
+    /* TICKER */
+
     loadHeadlines();
 
+
+    /* UPDATED */
+
     document
-      .getElementById("updated")
+      .getElementById(
+        "updated"
+      )
       .textContent =
 
         "UPDATED " +
@@ -749,8 +1052,8 @@ async function loadGames() {
           .toLocaleTimeString(
             "en-US",
             {
-              hour: "numeric",
-              minute: "2-digit",
+              hour:"numeric",
+              minute:"2-digit",
               timeZone:
                 "America/Los_Angeles"
             }
@@ -758,13 +1061,14 @@ async function loadGames() {
 
         + " PT";
 
-  } catch (error) {
+
+  }catch(error){
 
     console.error(error);
 
     gamesDiv.innerHTML =
       '<div class="error">' +
-      'Unable to load NCAA Football data.' +
+      'Unable to load NCAA FOOTBALL data.' +
       '</div>';
 
   }
@@ -775,13 +1079,19 @@ async function loadGames() {
 /* ---------- START ---------- */
 
 document
-  .getElementById("dateDisplay")
+  .getElementById(
+    "dateDisplay"
+  )
   .textContent =
-    formatDate(new Date());
+    formatHeaderDate(
+      new Date()
+    );
+
 
 loadHeadlines();
 
 loadGames();
+
 
 setInterval(
   loadGames,
