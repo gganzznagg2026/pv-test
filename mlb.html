@@ -787,32 +787,49 @@ async function loadGames(){
     const dateKeys = [0, -1, -2].map(offset => {
       const date = new Date();
       date.setDate(date.getDate() + offset);
-      return date.toLocaleDateString(
-        "en-CA",
-        {timeZone:"America/Los_Angeles"}
-      ).replace(/-/g, "");
+
+      const localDate =
+        new Date(
+          date.toLocaleString(
+            "en-US",
+            {timeZone:"America/Los_Angeles"}
+          )
+        );
+
+      const year = localDate.getFullYear();
+      const month = (
+        "0" + (localDate.getMonth() + 1)
+      ).slice(-2);
+      const day = (
+        "0" + localDate.getDate()
+      ).slice(-2);
+
+      return year + month + day;
     });
-
-    const responses = await Promise.all(
-      dateKeys.map(dateKey =>
-        fetch(
-          DATA_URL + "?limit=100&dates=" + dateKey,
-          {cache:"no-store"}
-        )
-      )
-    );
-
-    if(responses.some(response => !response.ok)){
-      throw new Error("MLB data unavailable");
-    }
 
     const payloads =
       await Promise.all(
-        responses.map(response => response.json())
+        dateKeys.map((dateKey,index) => {
+          const url =
+            index === 0
+              ? DATA_URL + "?limit=100"
+              : DATA_URL + "?limit=100&dates=" + dateKey;
+
+          return fetch(
+            url,
+            {cache:"no-store"}
+          )
+            .then(response =>
+              response.ok
+                ? response.json()
+                : null
+            )
+            .catch(() => null);
+        })
       );
 
     const games =
-      payloads.flatMap(
+      payloads.filter(Boolean).flatMap(
         (payload,index) =>
           (payload.events || [])
             .map(event => normalizeMlbGame(event,index === 0))
