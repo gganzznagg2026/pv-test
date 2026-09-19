@@ -13,7 +13,7 @@ html,body{width:1920px;height:1080px;overflow:hidden;background:#0a0a0a;color:#f
 .logo span{color:#a04040;}
 .header-right{font-size:16px;color:#888;text-align:right;line-height:1.7;}
 .ticker{background:#7a3030;color:#f0d0d0;font-size:16px;font-weight:600;padding:8px 0;white-space:nowrap;overflow:hidden;}
-.ticker-inner{display:inline-block;animation:scroll 50s linear infinite;padding-left:100%;}
+.ticker-inner{display:inline-block;animation:scroll 45s linear infinite;padding-left:100%;}
 @keyframes scroll{0%{transform:translateX(0);}100%{transform:translateX(-100%);}}
 .section-header{background:#7a3030;width:1920px;margin-left:-160px;padding:8px 160px;display:flex;align-items:center;justify-content:space-between;}
 .sh-left{color:#f0d0d0;font-size:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;}
@@ -40,7 +40,7 @@ html,body{width:1920px;height:1080px;overflow:hidden;background:#0a0a0a;color:#f
   <div class="logo">P<span style="color:#fff;">.</span>V<span style="color:#fff;">.</span> HOUSE <span style="font-size:18px;color:#555;font-weight:400;letter-spacing:1px;">— Restaurant &amp; Sports Lounge &nbsp;/&nbsp; Playa Vista</span></div>
   <div class="header-right"><span style="color:#5cb85c;">&#9679;</span> LIVE ODDS BOARD &nbsp;|&nbsp; SAT APR 4, 2026<br>Odds for entertainment only</div>
 </div>
-<div class="ticker"><div class="ticker-inner">MLB TODAY: Dodgers at Nationals 1:05PM &bull; Angels vs Mariners 6:38PM &bull; Giants vs Mets 6:05PM &bull; Yankees vs Marlins 4:05PM &bull; Red Sox vs Padres 1:10PM &bull; Tigers vs Cardinals 10:10AM &bull; Pirates vs Orioles 1:05PM &bull; Royals vs Brewers 11:10AM</div></div>
+<div class="ticker"><div class="ticker-inner" id="ticker">Loading MLB headlines...</div></div>
 </div>
 <div class="board">
 <div class="section-header"><span class="sh-left">&#9679; &nbsp;MLB — TODAY'S GAMES</span><span class="sh-badge">LA TEAMS FEATURED</span></div>
@@ -63,5 +63,62 @@ html,body{width:1920px;height:1080px;overflow:hidden;background:#0a0a0a;color:#f
 <div class="game-row"><div class="teams"><div class="team">Kansas City Royals</div><div class="team away">vs Milwaukee Brewers</div><div class="team-info">11:10 AM PT</div></div><div class="odds-cell"><div class="ov">+1.5</div><div class="ov">-1.5</div></div><div class="odds-cell"><div class="ov">+108</div><div class="ov">-128</div></div><div class="odds-cell"><div class="ov" style="padding:12px 8px;">O 8.0</div></div><div class="odds-cell"><div class="sv">11:10 AM</div></div></div>
 <div class="footer"><div class="ft">pvhousela.com &nbsp;&bull;&nbsp; @p.v.house &nbsp;&bull;&nbsp; 12751 Millennium Drive, Playa Vista</div><div class="ft">Odds for entertainment only &bull; Must be 21+ to wager</div></div>
 </div>
+<script>
+const NEWS_URL =
+  "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/news?limit=10";
+
+async function loadHeadlines(){
+
+  const ticker =
+    document.getElementById("ticker");
+
+  try{
+
+    const response =
+      await fetch(
+        NEWS_URL,
+        {cache:"no-store"}
+      );
+
+    if(!response.ok){
+      throw new Error(
+        "MLB news unavailable"
+      );
+    }
+
+    const data =
+      await response.json();
+
+    const headlines =
+      (data.articles || [])
+        .map(article =>
+          article.headline ||
+          article.title
+        )
+        .filter(Boolean)
+        .slice(0, 8);
+
+    ticker.textContent =
+      headlines.length
+        ? headlines.join("   •   ")
+        : "MLB HEADLINES — NO RECENT STORIES";
+
+  }catch(error){
+
+    ticker.textContent =
+      "MLB HEADLINES — NEWS FEED UNAVAILABLE";
+
+  }
+
+}
+
+loadHeadlines();
+
+setInterval(
+  loadHeadlines,
+  5 * 60 * 1000
+);
+</script>
+
 </body>
 </html>
