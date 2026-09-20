@@ -5,21 +5,23 @@
 <meta name="viewport" content="width=1920, initial-scale=1">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
-html,body{width:1920px;height:1080px;overflow:hidden;background:#0a0a0a;color:#fff;font-family:Arial,sans-serif;padding-top:15px;}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#0a0a0a;color:#fff;font-family:Arial,sans-serif;}
 .full-width{width:1920px;}
-.board{width:1600px;margin:0 auto;}
-.header{background:#111;border-bottom:3px solid #7a3030;padding:14px 160px;display:flex;align-items:center;justify-content:space-between;}
-.logo{font-size:32px;font-weight:900;letter-spacing:3px;color:#fff;}
+.board{width:1600px;margin:0 auto;position:relative;min-height:906px;padding-bottom:40px;}
+.header{height:110px;background:#111;border-bottom:4px solid #7a3030;padding:30px 80px 10px 165px;display:flex;align-items:center;justify-content:space-between;position:relative;}
+.logo{font-size:38px;font-weight:900;letter-spacing:3px;color:#fff;position:absolute;left:50%;transform:translateX(-50%);white-space:nowrap;}
 .logo span{color:#a04040;}
-.header-right{font-size:16px;color:#888;text-align:right;line-height:1.7;}
-.ticker{background:#7a3030;color:#f0d0d0;font-size:16px;font-weight:600;padding:8px 0;white-space:nowrap;overflow:hidden;}
-.ticker-inner{display:inline-block;animation:scroll 45s linear infinite;padding-left:100%;}
+.header-right{font-size:18px;color:#888;text-align:left;line-height:1.5;position:absolute;left:50px;right:auto;}
+.ticker{background:#7a3030;color:#f0d0d0;font-size:48px;font-weight:600;line-height:1;padding:8px 0;white-space:nowrap;overflow:hidden;}
+.ticker-inner{display:inline-block;animation:scroll 25s linear infinite;padding-left:100%;}
+.ticker-star{color:#f0c040;}
 @keyframes scroll{0%{transform:translateX(0);}100%{transform:translateX(-100%);}}
-.section-header{background:#7a3030;width:1920px;margin-left:-160px;padding:8px 160px;display:flex;align-items:center;justify-content:space-between;}
+.section-header{background:#7a3030;width:1920px;margin-left:-160px;padding:8px 160px;display:flex;align-items:center;justify-content:center;}
 .sh-left{color:#f0d0d0;font-size:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;}
 .sh-badge{background:#0a0a0a;color:#a04040;font-size:13px;font-weight:900;padding:3px 10px;border-radius:2px;}
-.events-top{padding:14px 40px 10px;display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-.events-mid{padding:0 40px 10px;}
+.sh-badge{display:none;}
+.events-top{padding:8px 40px 4px;display:grid;grid-template-columns:1fr;gap:10px;}
+.events-mid{padding:8px 40px 4px;}
 .event-card{background:#111;border:2px solid #222;border-radius:8px;padding:28px 36px;position:relative;overflow:hidden;}
 .event-card.featured{border-color:#7a3030;}
 .event-card.southpark{border-color:#1a3a5a;background:#0d1520;}
@@ -36,10 +38,24 @@ html,body{width:1920px;height:1080px;overflow:hidden;background:#0a0a0a;color:#f
 .event-badge.special{background:#1a3a5a;color:#6ab0ff;}
 .sp-content{display:flex;gap:30px;align-items:center;}
 .sp-image{width:200px;height:150px;flex-shrink:0;border-radius:6px;overflow:hidden;}
-.sp-image img{width:200px;height:150px;object-fit:cover;border-radius:6px;}
+.sp-image img{width:200px;height:150px;object-fit:contain;background:#000;border-radius:6px;}
 .sp-text{flex:1;}
+.jeopardy-content{display:flex;gap:30px;align-items:center;}
+.jeopardy-image{width:200px;height:190px;flex-shrink:0;border-radius:6px;overflow:hidden;background:#050a20;}
+.jeopardy-image img{width:200px;height:190px;object-fit:contain;border-radius:6px;}
+.jeopardy-text{flex:1;}
+.jeopardy-text .event-desc{font-size:17px;line-height:1.55;}
+.happy-hour-wide .event-desc{font-size:18px;line-height:1.55;}
+.happy-hour-wide .event-time{font-size:24px;}
+.happy-hour-content{display:grid;grid-template-columns:1fr 2fr;gap:34px;align-items:center;}
+.happy-hour-left{border-right:1px solid #292929;padding-right:28px;}
+.happy-hour-left .event-day{font-size:16px;}
+.happy-hour-left .event-title{font-size:34px;margin-bottom:8px;}
+.happy-hour-left .event-time{font-size:21px;margin-bottom:0;}
+.happy-hour-menu{display:grid;grid-template-columns:1fr 1fr;column-gap:30px;font-size:18px;color:#ddd;line-height:1.4;}
+.happy-hour-menu strong{grid-column:1/-1;color:#f0c040;display:block;font-size:13px;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;}
 .divider{height:1px;background:#1e1e1e;margin:0 40px;}
-.coming-soon{padding:10px 40px 0;}
+.coming-soon{padding:19px 40px 0;}
 .cs-title{font-size:13px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#555;margin-bottom:10px;}
 .cs-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;}
 .cs-item{background:#0f0f0f;border:1px solid #1e1e1e;border-radius:5px;padding:14px 20px;}
@@ -49,48 +65,63 @@ html,body{width:1920px;height:1080px;overflow:hidden;background:#0a0a0a;color:#f
 .cs-name{font-size:18px;font-weight:700;color:#ddd;margin-bottom:3px;}
 .cs-detail{font-size:13px;color:#555;margin-top:4px;}
 .cs-detail.ladies{color:#aa4466;}
-.footer{width:1920px;margin-left:-160px;background:#0f0f0f;border-top:1px solid #1e1e1e;padding:8px 160px;display:flex;justify-content:space-between;}
+.footer{width:1920px;height:40px;margin-left:-160px;position:absolute;left:0;bottom:0;background:#0f0f0f;border-top:1px solid #1e1e1e;padding:8px 160px;display:flex;justify-content:space-between;}
 .ft{font-size:13px;color:#3a3a3a;}
 </style>
 </head>
 <body>
 <div class="full-width">
 <div class="header">
-  <div class="logo">P<span style="color:#fff;">.</span>V<span style="color:#fff;">.</span> HOUSE <span style="font-size:18px;color:#555;font-weight:400;letter-spacing:1px;">— Restaurant &amp; Sports Lounge &nbsp;/&nbsp; Playa Vista</span></div>
+  <div class="logo">P.V. HOUSE SPORTS NETWORK</div>
   <div class="header-right"><span style="color:#f0c040;">&#9733;</span> EVENTS &amp; ENTERTAINMENT &nbsp;|&nbsp; PLAYA VISTA<br>pvhousela.com</div>
 </div>
-<div class="ticker"><div class="ticker-inner">KARAOKE EVERY TUESDAY at 7:30 PM &bull; South Park Special Screenings Every Wednesday at 9PM &bull; Happy Hour Mon-Fri 3-6PM &bull; Ladies Night Every Friday &bull; All Day Drink Specials Every Day &bull; Veuve Clicquot by the Glass $16.95 &bull; Private Events &amp; Party Bookings Available &bull; Follow us @p.v.house &bull; Reserve your table at pvhousela.com</div></div>
+<div class="ticker"><div class="ticker-inner"><span class="ticker-star">&#9733;</span>&nbsp;&nbsp; Events and Entertainment at PV House &nbsp;&nbsp;<span class="ticker-star">&#9733;</span></div></div>
 </div>
 <div class="board">
-<div class="section-header"><span class="sh-left">&#9679; &nbsp;EVENTS &amp; ENTERTAINMENT AT PV HOUSE</span><span class="sh-badge">PLAYA VISTA · CA</span></div>
-
 <div class="events-top">
   <div class="event-card featured">
-    <span class="event-badge weekly">Every Week</span>
-    <div class="event-day">Every Tuesday</div>
-    <div class="event-title">&#127908; Karaoke Night</div>
-    <div class="event-time">7:30 PM — Close</div>
-    <div class="event-desc">Grab the mic and take the stage every Tuesday night at PV House. All skill levels welcome — the more the merrier. Drink specials running all night long.</div>
-  </div>
-  <div class="event-card">
-    <span class="event-badge weekly">Mon – Fri</span>
-    <div class="event-day">Every Weekday · 3:00 – 6:00 PM</div>
-    <div class="event-title">&#127860; Happy Hour</div>
-    <div class="event-time">Bites $12.95 · Drink Specials</div>
-    <div class="event-desc">Nachos, Wings, Chinese Chicken Salad, Buffalo Cauliflower, Cheeseburger Sliders, Pepperoni Pizza, and Veggie Rice Bowl — all just $12.95. Plus daily drink specials Mon through Fri.</div>
+    <span class="event-badge weekly">Every Tuesday</span>
+    <div class="jeopardy-content">
+      <div class="jeopardy-image"><img src="Jeopardy_Bar_League.jpg" alt="Jeopardy Bar League"></div>
+      <div class="jeopardy-text">
+        <div class="event-day">Every Tuesday</div>
+        <div class="event-title">&#127922; Jeopardy Bar League</div>
+        <div class="event-time">7:30 PM &nbsp;&bull;&nbsp; Season starts October 4</div>
+        <div class="event-desc">The official bar trivia experience from America's Favorite Quiz Show. The 10-week league features 200+ prizes valued at over $18,000, including weekly random draws, virtual auditions, and a VIP Jeopardy! experience and trip for the national winning team. Learn more at JeopardyBarLeague.com.</div>
+      </div>
+    </div>
   </div>
 </div>
 
 <div class="events-mid">
   <div class="event-card southpark">
-    <span class="event-badge special">Every Wednesday</span>
+    <span class="event-badge special">Every Other Wednesday</span>
     <div class="sp-content">
-      <div class="sp-image"><img src="SouthPark_Sign.jpg" alt="South Park"></div>
+      <div class="sp-image"><img src="SouthPark_America.jpg" alt="South Park: New Episodes"></div>
       <div class="sp-text">
-        <div class="event-day sp">Every Wednesday Night</div>
-        <div class="event-title">&#127916; South Park — Special Screenings</div>
-        <div class="event-time">9:00 PM &nbsp;&bull;&nbsp; See It Before It Airs</div>
-        <div class="event-desc">PV House is your exclusive destination for South Park special screenings every Wednesday night at 9PM. See new episodes before they air — only at PV House in Playa Vista.</div>
+        <div class="event-day sp">Every Other Wednesday Night</div>
+        <div class="event-title">&#127916; South Park — Premiere Screening</div>
+        <div class="event-time">8:30 PM &nbsp;&bull;&nbsp; Season starts September 16 &nbsp;&bull;&nbsp; See It Before It Airs</div>
+        <div class="event-desc">PV House is your South Park premiere screening destination. See all new episodes before they air — only at PV House in Playa Vista.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="events-mid happy-hour-wide">
+  <div class="event-card">
+    <span class="event-badge weekly">Mon – Fri</span>
+    <div class="happy-hour-content">
+      <div class="happy-hour-left">
+        <div class="event-day">Monday – Friday</div>
+        <div class="event-title">&#127860; Happy Hour</div>
+        <div class="event-time">3:00 – 6:00 PM</div>
+        <div class="event-time">Bites $12.95 · Drink Specials</div>
+      </div>
+      <div class="happy-hour-menu">
+        <strong>Happy Hour Bites</strong>
+        <span>Nachos<br>Chicken Wings<br>Chinese Chicken Salad</span>
+        <span>Buffalo Cauliflower<br>Cheeseburger Sliders<br>Pepperoni Pizza<br>Veggie Rice Bowl</span>
       </div>
     </div>
   </div>
@@ -120,10 +151,10 @@ html,body{width:1920px;height:1080px;overflow:hidden;background:#0a0a0a;color:#f
       <div class="cs-name">All Well Drinks $9.95</div>
       <div class="cs-detail">All day · Every Thursday</div>
     </div>
-    <div class="cs-item ladies">
-      <div class="cs-date ladies">&#128149; Friday</div>
-      <div class="cs-name">Ladies Night</div>
-      <div class="cs-detail ladies">All ladies drinks 15% off &bull; Single ladies leave with Gian</div>
+    <div class="cs-item">
+      <div class="cs-date">Friday</div>
+      <div class="cs-name">Espresso Martinis</div>
+      <div class="cs-detail">$11.95 all day</div>
     </div>
   </div>
 </div>

@@ -295,6 +295,95 @@ html,body{
   color:#555;
   font-size:14px;
 }
+
+/* NFL identity: black board with Rams ticker */
+.header{
+  background:#111;
+  color:#fff;
+  border-bottom-color:#ffd100;
+}
+.logo-sub{color:#777;}
+.header-right{color:#aaa;}
+.updated{color:#777;}
+.ticker{
+  background:#003594;
+  color:#ffd100;
+  border-bottom:2px solid #ffd100;
+}
+.section-header{
+  background:#151515;
+  color:#fff;
+  border-bottom-color:#ffd100;
+}
+.column-header{
+  background:#111;
+  color:#666;
+}
+
+/* Two-column NFL board, matching the MLB layout. */
+.header{border-bottom-width:4px;}
+.header{position:relative;}
+.header .logo{position:absolute;left:50%;transform:translateX(-50%);}
+.header .header-right{position:absolute;left:50px;right:auto;text-align:left;padding-left:0;}
+.ticker{height:56px;border-bottom-width:4px;}
+.section-header{border-bottom-width:4px;}
+.section-header{position:relative;}
+.section-title{position:absolute;left:50%;transform:translateX(-50%);}
+.section-header > div:last-child{position:absolute;right:80px;}
+.column-header{height:50px;padding:0 190px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;}
+.column-set{display:grid;grid-template-columns:225px 140px 95px 100px 90px 1fr;align-items:center;}
+.column-set > div:first-child{padding-left:24px;text-align:left;}
+.column-set > div:not(:first-child){text-align:center;}
+.column-set > div:nth-child(2){text-align:left;}
+
+#localTeams{height:190px;padding:24px 0;overflow:hidden;background:#0d0d0d;border-bottom:4px solid #ffd100;}
+.local-heading,.local-grid{max-width:1540px;margin-left:auto;margin-right:auto;}
+.local-heading{font-size:16px;font-weight:900;letter-spacing:2px;margin-bottom:10px;}
+.local-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;}
+.local-card{min-height:120px;padding:10px 22px;border-left:5px solid #003594;background:#151515;display:grid;grid-template-columns:208px 180px 1fr;grid-template-rows:repeat(3,auto);gap:4px 22px;align-items:center;}
+.local-teams{grid-column:1;grid-row:1/4;display:flex;flex-direction:column;justify-content:center;gap:9px;}
+.local-team-line{position:relative;display:block;font-size:21px;font-weight:800;white-space:nowrap;}
+.local-team-line.away{color:#bbb;font-weight:500;}
+.local-team-score{position:absolute;right:-80px;color:#fff;font-size:24px;font-weight:900;min-width:28px;text-align:right;transform:none;}
+.local-middle{grid-column:2;grid-row:1/4;display:flex;flex-direction:column;justify-content:center;gap:8px;padding-left:0;text-align:center;transform:translateX(70px);color:#fff;font-size:15px;font-weight:800;text-transform:uppercase;}
+.local-right{grid-column:3;grid-row:1/4;text-align:right;color:#9fc5f7;font-size:13px;font-weight:700;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+#games{height:518px;overflow:hidden;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(4,minmax(0,1fr));gap:3px 24px;padding:0 190px;}
+.game-row{height:auto;min-height:0;padding:10px 24px;grid-template-columns:201px 140px 95px 100px 90px 1fr;grid-template-rows:1fr;column-gap:14px;}
+.game-row > .two-lines{grid-column:1;grid-row:1;}
+.game-row > .score-block{grid-column:2;grid-row:1;text-align:left;}
+.game-row > .odds:nth-child(3){grid-column:3;grid-row:1;}
+.game-row > .odds:nth-child(4){grid-column:4;grid-row:1;}
+.game-row > .odds:nth-child(5){grid-column:5;grid-row:1;}
+.game-row > .game-info{grid-column:6;grid-row:1;}
+.game-row.featured{border-left:0;padding-left:24px;background:inherit;}
+#games .game-row > .two-lines{transform:translateX(-48px);}
+#games .game-row > .odds:nth-child(3),
+#games .game-row > .odds:nth-child(4),
+#games .game-row > .odds:nth-child(5),
+#games .game-row > .game-info{transform:translateX(24px);}
+
+/* Use the full NFL board width while keeping the split aligned to LOCAL TEAMS TODAY. */
+.column-header{padding-left:50px;padding-right:50px;grid-template-columns:938px 1fr;gap:0;}
+.column-set{grid-template-columns:249px 135px 95px 95px 90px 1fr;column-gap:14px;}
+#games{padding-left:50px;padding-right:50px;grid-template-columns:938px 1fr;column-gap:0;}
+.game-row{grid-template-columns:225px 135px 95px 95px 90px 1fr;}
+#games .game-row > .two-lines{transform:translateX(-20px);}
+.game-row > .score-block{transform:translateX(30px);}
+.column-set > div:nth-child(2){transform:translateX(30px);}
+.game-info,.game-date,.kickoff{white-space:nowrap;}
+.column-header .column-set:nth-child(2){transform:translateX(30px);}
+#games .game-row:nth-child(even){transform:translateX(30px);}
+.column-header .column-set:first-child{transform:translateX(-10px);}
+#games .game-row:nth-child(odd){transform:translateX(-10px);}
+#games .game-row:nth-child(odd){width:calc(100% + 10px);}
+#games .game-row:nth-child(even){transform:translateX(0);width:100%;background:#0d0d0d;}
+#games .game-row:nth-child(even) > .two-lines{transform:translateX(10px);}
+#games .game-row:nth-child(even) > .odds:nth-child(3),
+#games .game-row:nth-child(even) > .odds:nth-child(4),
+#games .game-row:nth-child(even) > .odds:nth-child(5),
+#games .game-row:nth-child(even) > .game-info{transform:translateX(54px);}
+#games .game-row:nth-child(even) > .score-block{transform:translateX(60px);}
+.column-set > div:nth-child(n+3){transform:translateX(24px);}
 </style>
 </head>
 
@@ -303,10 +392,7 @@ html,body{
 <div class="header">
 
   <div class="logo">
-    P.V. HOUSE
-    <span class="logo-sub">
-      — Restaurant &amp; Sports Lounge / Playa Vista
-    </span>
+    P.V. HOUSE SPORTS NETWORK
   </div>
 
   <div class="header-right">
@@ -326,7 +412,7 @@ html,body{
 <div class="section-header">
 
   <div class="section-title">
-    ● &nbsp; NFL — GAME SCHEDULE
+    NFL — GAME SCHEDULE
   </div>
 
   <div>
@@ -337,13 +423,18 @@ html,body{
 
 </div>
 
+<section id="localTeams">
+  <div class="local-heading">LOCAL TEAMS TODAY</div>
+  <div class="local-grid" id="localGrid"></div>
+</section>
+
 <div class="column-header">
-  <div>MATCHUP</div>
-  <div>SCORE / STATUS</div>
-  <div>SPREAD</div>
-  <div>MONEYLINE</div>
-  <div>O / U</div>
-  <div>GAME INFO</div>
+  <div class="column-set">
+    <div>MATCHUP</div><div>SCORE</div><div>SPREAD</div><div>MONEYLINE</div><div>O / U</div><div>GAME INFO</div>
+  </div>
+  <div class="column-set">
+    <div>MATCHUP</div><div>SCORE</div><div>SPREAD</div><div>MONEYLINE</div><div>O / U</div><div>GAME INFO</div>
+  </div>
 </div>
 
 <div id="games">
@@ -381,10 +472,11 @@ const FEATURED_TEAMS = [
   "Los Angeles Chargers"
 ];
 
-const GAMES_PER_PAGE = 6;
+const GAMES_PER_PAGE = 8;
 const PAGE_DURATION = 12000;
 
 let allGames = [];
+let localGames = [];
 let currentPage = 0;
 let pageTimer = null;
 
@@ -644,9 +736,6 @@ function createGameRow(game){
     );
 
 
-  const status =
-    gameStatus(game);
-
   const featured =
     isFeatured(game);
 
@@ -699,10 +788,6 @@ function createGameRow(game){
             : "—"}
         </div>
 
-      </div>
-
-      <div class="status ${status.className}">
-        ${status.label}
       </div>
 
     </div>
@@ -816,6 +901,59 @@ function createGameRow(game){
 
 }
 
+function createLocalCard(game){
+
+  const bookmaker = getBookmaker(game);
+  const spreadMarket = getMarket(bookmaker,"spreads");
+  const moneyMarket = getMarket(bookmaker,"h2h");
+  const totalMarket = getMarket(bookmaker,"totals");
+  const awaySpread = findOutcome(spreadMarket,game.away_team);
+  const homeSpread = findOutcome(spreadMarket,game.home_team);
+  const awayMoney = findOutcome(moneyMarket,game.away_team);
+  const homeMoney = findOutcome(moneyMarket,game.home_team);
+  const over = totalMarket && totalMarket.outcomes
+    ? totalMarket.outcomes.find(o => o.name === "Over")
+    : null;
+  const status = gameStatus(game);
+  const awayScore = getScore(game,game.away_team);
+  const homeScore = getScore(game,game.home_team);
+  const total = over && over.point !== undefined ? over.point : "—";
+
+  return `
+    <div class="local-card">
+      <div class="local-teams">
+        <div class="local-team-line away">${game.away_team}<span class="local-team-score">${awayScore !== null ? awayScore : "—"}</span></div>
+        <div class="local-team-line">${game.home_team}<span class="local-team-score">${homeScore !== null ? homeScore : "—"}</span></div>
+      </div>
+      <div class="local-middle">
+        <div>${status.label}</div>
+        <div>${formatGameDate(game.commence_time)}</div>
+        <div>${formatTime(game.commence_time)}</div>
+      </div>
+      <div class="local-right">
+        <div>SPREAD&nbsp;&nbsp; ${awaySpread ? formatAmerican(awaySpread.point) : "—"} / ${homeSpread ? formatAmerican(homeSpread.point) : "—"}</div>
+        <div>MONEYLINE&nbsp;&nbsp; ${awayMoney ? formatAmerican(awayMoney.price) : "—"} / ${homeMoney ? formatAmerican(homeMoney.price) : "—"}</div>
+        <div>O/U&nbsp;&nbsp; ${total}</div>
+      </div>
+    </div>
+  `;
+}
+
+function renderLocalTeams(){
+
+  const localGrid = document.getElementById("localGrid");
+  const localSection = document.getElementById("localTeams");
+
+  if(!localGames.length){
+    localSection.style.display = "none";
+    return;
+  }
+
+  localSection.style.display = "block";
+  localGrid.innerHTML = localGames.slice(0,2).map(createLocalCard).join("");
+
+}
+
 
 /* ---------- PAGES ---------- */
 
@@ -926,7 +1064,7 @@ async function loadHeadlines(){
     ticker.textContent =
       headlines.length
         ? headlines.join(
-            "   •   "
+            "          •          "
           )
         : "NFL HEADLINES — NO RECENT STORIES";
 
@@ -1005,7 +1143,10 @@ async function loadGames(){
     );
 
 
-    allGames = games;
+    localGames = games.filter(isFeatured);
+    allGames = games.filter(game => !isFeatured(game));
+
+    renderLocalTeams();
 
     currentPage = 0;
 

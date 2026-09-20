@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1920, initial-scale=1">
+<title>PVHSN Headlines Preview</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#080808;color:#fff;font-family:Arial,sans-serif}
+.header{height:110px;background:#111;border-bottom:4px solid #7a3030;display:flex;align-items:center;justify-content:center;position:relative}
+.logo{font-size:38px;font-weight:900;letter-spacing:3px}.header-right{position:absolute;left:50px;text-align:left;color:#aaa;font-size:18px;line-height:1.5}.dot{color:#5cb85c}
+.ticker{height:56px;background:#7a3030;color:#f0d0d0;display:flex;align-items:center;overflow:hidden;white-space:nowrap;font-size:21px;font-weight:700}.ticker-inner{display:inline-block;padding-left:100%;animation:scroll 50s linear infinite}@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-100%)}}
+.section{height:58px;background:#151515;border-bottom:4px solid #7a3030;display:flex;align-items:center;justify-content:center;position:relative}.section h1{font-size:25px;letter-spacing:2px}.updated{position:absolute;right:80px;color:#777;font-size:14px}
+.board{height:856px;padding:18px 50px 24px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:250px 1fr;gap:18px 24px}
+.panel{background:#111;border:1px solid #252525;border-radius:5px;overflow:hidden}.panel-label{height:34px;padding:9px 16px;background:#181818;color:#f0c040;font-size:12px;font-weight:900;letter-spacing:2px;text-transform:uppercase}
+.featured{display:grid;grid-template-columns:1.1fr 1fr;gap:20px;padding:20px}.featured .tag{color:#ff8a6a}.featured h2{font-size:32px;line-height:1.08;margin:10px 0}.featured p{font-size:16px;color:#999;line-height:1.4}.featured .summary{margin-top:12px;padding-top:10px;border-top:1px solid #292929;color:#ddd;font-size:15px;line-height:1.35}.featured .source{margin-top:10px;color:#777;font-size:12px;text-transform:uppercase;letter-spacing:1px}.feature-image{height:100%;min-height:150px;border-radius:4px;background:#1a1a1a center/cover no-repeat}.meta{font-size:13px;color:#f0c040;font-weight:700;letter-spacing:1px}
+.local{padding:18px 20px}.local-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px}.local-card{padding:14px;border-left:5px solid #123b70;background:#151515}.local-card h3{font-size:22px;margin-bottom:5px}.local-card p{color:#999;font-size:14px;line-height:1.35}.local-card .meta{color:#6fa7df}
+.stories{grid-column:1 / -1;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:34px 1fr;gap:0 24px}.stories-title{grid-column:1 / -1;background:#151515;color:#777;font-size:13px;font-weight:900;letter-spacing:2px;padding:10px 16px}.story-col{display:grid;grid-template-rows:repeat(3,1fr)}.story{display:grid;grid-template-columns:78px 1fr 90px;gap:15px;align-items:center;padding:13px 18px;border-bottom:1px solid #222;background:#0d0d0d}.story:nth-child(even){background:#111}.story .tag{font-size:11px;font-weight:900;letter-spacing:1px;text-align:center;padding:6px 4px;border-radius:3px}.tag-nfl{background:#1a3a1a;color:#6adf6a}.tag-ncaa{background:#2a1a3a;color:#c06aff}.tag-mlb{background:#2a1a1a;color:#ff8a6a}.tag-nba{background:#1a2a4a;color:#6ab0ff}.tag-nhl{background:#1a2a3a;color:#6ad0ff}.story h3{font-size:18px;line-height:1.15}.story p{font-size:12px;color:#888;margin-top:4px}.story time{color:#f0c040;font-size:12px;text-align:right;font-weight:700}
+.loading{color:#777;padding:24px}
+</style>
+</head>
+<body>
+<header class="header"><div class="logo">P.V. HOUSE SPORTS NETWORK</div><div class="header-right"><span class="dot">●</span> SPORTS NEWS<br><span id="date"></span></div></header>
+<div class="ticker"><div class="ticker-inner" id="ticker">Loading latest sports headlines...</div></div>
+<div class="section"><h1>TODAY'S TOP SPORTS HEADLINES</h1><div class="updated" id="updated">UPDATING...</div></div>
+<main class="board">
+  <section class="panel featured" id="featured"><div class="loading">Loading featured story...</div></section>
+  <section class="panel local"><div class="panel-label">LOCAL FOCUS</div><div class="local-grid" id="local"><div class="loading">Loading local stories...</div></div></section>
+  <section class="stories"><div class="stories-title">LATEST HEADLINES</div><div class="story-col" id="storiesA"></div><div class="story-col" id="storiesB"></div></section>
+</main>
+<script>
+const SOURCES=[
+  ["NFL","https://site.api.espn.com/apis/site/v2/sports/football/nfl/news?limit=5","tag-nfl"],
+  ["NCAA","https://site.api.espn.com/apis/site/v2/sports/football/college-football/news?limit=5","tag-ncaa"],
+  ["MLB","https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/news?limit=5","tag-mlb"],
+  ["NBA","https://site.api.espn.com/apis/site/v2/sports/basketball/nba/news?limit=5","tag-nba"],
+  ["NHL","https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/news?limit=5","tag-nhl"]
+];
+const FALLBACK=[
+  ["MLB","Dodgers and Angels headline today's local baseball slate","Local teams and league-wide scores updated throughout the day.","Today","tag-mlb"],
+  ["NFL","Training camp, roster moves, and the latest league news","The biggest stories from around the NFL.","Today","tag-nfl"],
+  ["NCAA","College football news and national headlines","Scores, schedules, and stories from across the country.","Today","tag-ncaa"],
+  ["NBA","League news, milestones, and tonight's key matchups","The latest from around the NBA.","Today","tag-nba"],
+  ["NHL","Playoff races and the biggest stories from the ice","News from around the NHL.","Today","tag-nhl"],
+  ["NCAA","USC and UCLA remain in the local focus","Follow the Trojans and Bruins all season.","Today","tag-ncaa"]
+];
+function esc(v){return String(v||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]))}
+function normalize(source,data,tag){return (data.articles||[]).slice(0,5).map(a=>[source,a.headline||a.title||"Sports headline",a.description||"Latest sports news",a.published?new Date(a.published).toLocaleDateString("en-US",{month:"short",day:"numeric"}):"Today",tag,a.images&&a.images[0]?a.images[0].url:""])}
+function story(item){return `<article class="story"><div class="tag ${item[4]}">${esc(item[0])}</div><div><h3>${esc(item[1])}</h3><p>${esc(item[2])}</p></div><time>${esc(item[3])}</time></article>`}
+let featureIndex=0;
+let currentItems=[];
+function renderFeatured(){
+  const top=currentItems[featureIndex%currentItems.length]||FALLBACK[0];
+  const second=currentItems[(featureIndex+1)%currentItems.length]||FALLBACK[1];
+  const image=top[5]?`<div class="feature-image" style="background-image:url('${top[5]}')"></div>`:'<div class="feature-image"></div>';
+  document.querySelector("#featured").innerHTML=`${image}<div><div class="meta ${top[4]}">${esc(top[0])} &nbsp;•&nbsp; FEATURED</div><h2>${esc(top[1])}</h2><p>${esc(top[2])}</p><div class="summary"><strong>ALSO DEVELOPING:</strong><br>${esc(second[1])}</div><div class="source">${esc(top[3])} &nbsp;•&nbsp; PVHSN SPORTS DESK</div></div>`;
+}
+function render(items){
+  currentItems=items; featureIndex=0; renderFeatured();
+  const local=items.filter(x=>/dodger|angel|ram|charger|usc|ucla/i.test(x[1]+x[2])).slice(0,2);
+  document.querySelector("#local").innerHTML=(local.length?local:FALLBACK.slice(0,2)).map(x=>`<div class="local-card"><div class="meta">${esc(x[0])}</div><h3>${esc(x[1])}</h3><p>${esc(x[2])}</p></div>`).join("");
+  const rest=items.slice(1); document.querySelector("#storiesA").innerHTML=rest.slice(0,3).map(story).join(""); document.querySelector("#storiesB").innerHTML=rest.slice(3,6).map(story).join("");
+  document.querySelector("#ticker").textContent=items.slice(0,6).map(x=>x[1]).join("                    •                    ");
+}
+async function load(){
+  const results=await Promise.all(SOURCES.map(async s=>{try{const r=await fetch(s[1],{cache:"no-store"});if(!r.ok)throw new Error();return normalize(s[0],await r.json(),s[2]);}catch(e){return []}}));
+  const items=results.flat(); render(items.length?items:FALLBACK); document.querySelector("#updated").textContent="UPDATED "+new Date().toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit"});
+}
+document.querySelector("#date").textContent=new Date().toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric",year:"numeric"}).toUpperCase(); load();
+setInterval(()=>{if(currentItems.length>1){featureIndex=(featureIndex+1)%currentItems.length;renderFeatured();}},12000);
+</script>
+</body>
+</html>

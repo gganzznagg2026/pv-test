@@ -121,7 +121,7 @@ html,body{
 
 .column-header{
   height:50px;
-  padding:0 80px 0 165px;
+  padding:0 190px;
   background:#111;
   color:#666;
   font-size:14px;
@@ -130,19 +130,215 @@ html,body{
   letter-spacing:1px;
 }
 
+.column-header{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:24px;
+}
+
+.column-set{
+  display:grid;
+  grid-template-columns:225px 180px 100px 100px 1fr;
+  align-items:center;
+}
+
+.column-set > div:first-child{
+  text-align:left;
+  padding-left:24px;
+}
+
+.column-set > div:not(:first-child){
+  text-align:center;
+}
+
+.column-set > div:nth-child(2){
+  text-align:left;
+}
+
+#localTeams{
+  height:0;
+  overflow:hidden;
+  background:#0d0d0d;
+  color:#fff;
+  border-bottom:4px solid #123b70;
+  transition:height .2s ease;
+}
+
+#localTeams.has-games{
+  height:190px;
+  padding:24px 0;
+}
+
+.local-heading{
+  max-width:1540px;
+  margin:0 auto 10px;
+  font-size:16px;
+  font-weight:900;
+  letter-spacing:2px;
+}
+
+.local-grid{
+  max-width:1540px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:28px;
+}
+
+.local-card{
+  min-height:120px;
+  padding:10px 22px;
+  border-left:5px solid #123b70;
+  background:#151515;
+  display:grid;
+  grid-template-columns:208px 180px 1fr;
+  grid-template-rows:repeat(3,auto);
+  gap:4px 22px;
+  align-items:center;
+}
+
+.local-teams{
+  grid-column:1;
+  grid-row:1 / 4;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:9px;
+}
+
+.local-team-line{
+  display:flex;
+  justify-content:space-between;
+  gap:16px;
+  font-size:21px;
+  font-weight:800;
+  white-space:nowrap;
+}
+
+.local-team-line.away{
+  color:#bbb;
+  font-weight:500;
+}
+
+.local-team-score{
+  color:#fff;
+  font-size:24px;
+  font-weight:900;
+  min-width:28px;
+  text-align:right;
+  transform:translateX(30px);
+}
+
+.local-middle{
+  grid-column:2;
+  grid-row:1 / 4;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:8px;
+  padding-left:0;
+  text-align:center;
+  transform:translateX(70px);
+  color:#fff;
+  font-size:15px;
+  font-weight:800;
+  text-transform:uppercase;
+}
+
+.local-right{
+  grid-column:2;
+  grid-column:3;
+  grid-row:1 / 4;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:7px;
+  text-align:right;
+  color:#bbb;
+  font-size:14px;
+  font-weight:700;
+}
+
+.local-stats{
+  color:#9fc5f7;
+  font-size:15px;
+}
+
 .column-header div:not(:first-child){
   text-align:center;
+}
+
+.column-header .column-set > div:nth-child(2){
+  text-align:left;
 }
 
 #games{
   height:708px;
   overflow:hidden;
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  grid-template-rows:repeat(6,minmax(0,1fr));
+  gap:3px 24px;
+  padding:0 190px;
+}
+
+#games.with-local{
+  height:518px;
+  grid-template-rows:repeat(4,minmax(0,1fr));
 }
 
 .game-row{
   height:118px;
   padding:11px 80px 11px 165px;
   border-bottom:1px solid #242424;
+}
+
+.game-row{
+  height:auto;
+  min-height:0;
+  padding:10px 24px;
+  grid-template-columns:201px 180px 100px 100px 1fr;
+  grid-template-rows:1fr;
+  column-gap:14px;
+}
+
+.game-row > .two-lines{
+  grid-row:1;
+  grid-column:1;
+}
+
+.game-row > .score-block{
+  grid-row:1;
+  grid-column:2;
+  text-align:left;
+}
+
+.game-row > .odds:nth-child(3){
+  grid-row:1;
+  grid-column:3;
+}
+
+.game-row > .odds:nth-child(4){
+  grid-row:1;
+  grid-column:4;
+}
+
+.game-row > .odds:nth-child(5){
+  grid-row:1;
+  grid-column:5;
+}
+
+.game-row > .game-info{
+  display:none;
+}
+
+.game-row .total{
+  min-width:0;
+  width:100%;
+  padding:6px 4px;
+  font-size:13px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
 .game-row:nth-child(odd){
@@ -295,6 +491,61 @@ html,body{
   color:#555;
   font-size:14px;
 }
+
+/* MLB identity: black board with Dodgers ticker */
+.header{
+  background:#111;
+  color:#fff;
+  border-bottom-color:#123b70;
+  border-bottom-width:4px;
+}
+.logo-sub{color:#777;}
+.header-right{color:#aaa;}
+.updated{color:#777;}
+.ticker{
+  height:56px;
+  background:#fff;
+  color:#2f6fbd;
+  border-bottom:4px solid #123b70;
+}
+.section-header{
+  background:#151515;
+  color:#fff;
+  border-bottom-color:#123b70;
+  border-bottom-width:4px;
+}
+.column-header{
+  background:#111;
+  color:#666;
+}
+#games{
+  height:700px;
+}
+#games.with-local{
+  height:510px;
+}
+.game-row > .score-block{transform:translateX(70px);}
+.column-header .column-set > div:nth-child(2){transform:translateX(70px);}
+.column-set{column-gap:14px;}
+.header{position:relative;}
+.header .logo{position:absolute;left:50%;transform:translateX(-50%);}
+.header .header-right{position:absolute;left:50px;right:auto;text-align:left;padding-left:0;}
+.section-header{position:relative;}
+.section-title{position:absolute;left:50%;transform:translateX(-50%);}
+.section-header > div:last-child{position:absolute;right:80px;}
+.column-header .column-set:first-child{transform:translateX(-140px);}
+#games .game-row:nth-child(odd){transform:translateX(-140px);}
+.column-header .column-set:nth-child(2){transform:translateX(46px);}
+#games .game-row:nth-child(even){transform:translateX(46px);}
+#games .game-row:nth-child(odd),
+#games .game-row:nth-child(even){width:calc(100% + 164px);}
+#games .game-row:nth-child(even){transform:translateX(0);}
+#games .game-row:nth-child(even) > .two-lines,
+#games .game-row:nth-child(even) > .odds,
+#games .game-row:nth-child(even) > .game-info{transform:translateX(46px);}
+#games .game-row:nth-child(even) > .score-block{transform:translateX(116px);}
+.game-row:nth-child(even){background:#0d0d0d;}
+.game-row .total{background:#141414;}
 </style>
 </head>
 
@@ -303,10 +554,7 @@ html,body{
 <div class="header">
 
   <div class="logo">
-    P.V. HOUSE
-    <span class="logo-sub">
-      — Restaurant &amp; Sports Lounge / Playa Vista
-    </span>
+    P.V. HOUSE SPORTS NETWORK
   </div>
 
   <div class="header-right">
@@ -326,7 +574,7 @@ html,body{
 <div class="section-header">
 
   <div class="section-title">
-    ● &nbsp; MLB — GAME SCHEDULE
+    MLB — GAME SCHEDULE
   </div>
 
   <div>
@@ -337,13 +585,23 @@ html,body{
 
 </div>
 
+<div id="localTeams"></div>
+
 <div class="column-header">
-  <div>MATCHUP</div>
-  <div>SCORE / STATUS</div>
-  <div>INNING</div>
-  <div>START TIME</div>
-  <div>VENUE</div>
-  <div>GAME INFO</div>
+  <div class="column-set">
+    <div>MATCHUP</div>
+    <div>SCORE</div>
+    <div>INNING</div>
+    <div>START</div>
+    <div>VENUE</div>
+  </div>
+  <div class="column-set">
+    <div>MATCHUP</div>
+    <div>SCORE</div>
+    <div>INNING</div>
+    <div>START</div>
+    <div>VENUE</div>
+  </div>
 </div>
 
 <div id="games">
@@ -381,7 +639,10 @@ const FEATURED_TEAMS = [
   "Los Angeles Angels"
 ];
 
-const GAMES_PER_PAGE = 6;
+const DEMO_LOCAL_LIVE =
+  new URLSearchParams(window.location.search).get("demo") === "live";
+
+const GAMES_PER_PAGE = 12;
 const PAGE_DURATION = 12000;
 
 let allGames = [];
@@ -501,11 +762,7 @@ function formatAmerican(value){
 
 function isFeatured(game){
 
-  return FEATURED_TEAMS.some(
-    team =>
-      game.home_team.includes(team) ||
-      game.away_team.includes(team)
-  );
+  return game.isLocalTeam === true;
 
 }
 
@@ -572,17 +829,25 @@ function gameStatus(game){
 function createGameRow(game){
 
   const featured = isFeatured(game);
-  const awayScore = game.awayScore !== undefined ? game.awayScore : "—";
-  const homeScore = game.homeScore !== undefined ? game.homeScore : "—";
+  const awayScore = game.awayScore !== null ? game.awayScore : "—";
+  const homeScore = game.homeScore !== null ? game.homeScore : "—";
+  const inning = game.status.label === "LIVE"
+    ? [game.inningState, game.currentInningOrdinal].filter(Boolean).join(" ")
+    : game.status.label === "FINAL" ? "FINAL" : "—";
+  const gameInfo = game.status.label === "UPCOMING"
+    ? [game.probablePitchers.away && game.probablePitchers.away.name,
+       game.probablePitchers.home && game.probablePitchers.home.name]
+        .filter(Boolean).join(" vs ") || game.status.detailed || "SCHEDULED"
+    : game.status.detailed || game.status.label;
 
   return `
     <div class="game-row ${featured ? "featured" : ""}">
       <div class="two-lines">
         <div class="team-line away">
-          ${game.awayTeam}
+          ${game.awayTeam.name}
           ${featured ? '<span class="feature-tag">LA</span>' : ''}
         </div>
-        <div class="team-line">${game.homeTeam}</div>
+        <div class="team-line">${game.homeTeam.name}</div>
       </div>
 
       <div class="score-block">
@@ -590,22 +855,70 @@ function createGameRow(game){
           <div class="score">${awayScore}</div>
           <div class="score">${homeScore}</div>
         </div>
-        <div class="status ${game.status.className}">
-          ${game.status.label}
-        </div>
       </div>
 
-      <div class="odds"><div class="total">${game.inning || "—"}</div></div>
-      <div class="odds"><div class="total">${formatTime(game.start)}</div></div>
-      <div class="odds"><div class="total">${game.venue || "—"}</div></div>
+      <div class="odds"><div class="total">${inning}</div></div>
+      <div class="odds"><div class="total">${formatTime(game.startTime)}</div></div>
+      <div class="odds"><div class="total">${game.venue ? game.venue.name : "—"}</div></div>
 
       <div class="game-info">
-        <div class="game-date">${formatGameDate(game.start)}</div>
-        <div class="kickoff">${game.detail}</div>
+        <div class="game-date">${formatGameDate(game.startTime)}</div>
+        <div class="kickoff">${gameInfo}</div>
       </div>
     </div>
   `;
 
+}
+
+function renderLocalTeams(games){
+
+  const local = games.filter(game => game.isLocalTeam);
+  const localDiv = document.getElementById("localTeams");
+  const gamesDiv = document.getElementById("games");
+
+  if(!local.length){
+    localDiv.className = "";
+    localDiv.innerHTML = "";
+    gamesDiv.classList.remove("with-local");
+    return;
+  }
+
+  localDiv.className = "has-games";
+  gamesDiv.classList.add("with-local");
+  localDiv.innerHTML = `
+    <div class="local-heading">LOCAL TEAMS TODAY</div>
+    <div class="local-grid">
+      ${local.map(game => {
+        const state = game.status.label === "LIVE"
+          ? [game.inningState, game.currentInningOrdinal].filter(Boolean).join(" ")
+          : game.status.label === "FINAL" ? "FINAL" : formatTime(game.startTime);
+        const matchup = `${game.awayTeam.shortName || game.awayTeam.name} ${game.awayScore ?? "—"}  —  ${game.homeTeam.shortName || game.homeTeam.name} ${game.homeScore ?? "—"}`;
+        const pitchers = [game.probablePitchers.away && game.probablePitchers.away.name,
+          game.probablePitchers.home && game.probablePitchers.home.name]
+          .filter(Boolean).join(" vs ");
+        const detail = game.status.label === "LIVE"
+          ? `${state}${game.outs !== null ? ` · ${game.outs} OUT${game.outs === 1 ? "" : "S"}` : ""}`
+          : pitchers || game.status.detailed || "SCHEDULED";
+        const stats = game.status.label === "LIVE" || game.status.label === "FINAL"
+          ? `${game.awayStats.runs ?? game.awayScore ?? "—"} R, ${game.awayStats.hits ?? "—"} H, ${game.awayStats.errors ?? "—"} E`
+          : pitchers || "SCHEDULED";
+        const middle = game.status.label === "LIVE"
+          ? `<div>${game.inningState || ""} ${game.currentInningOrdinal || ""}</div><div>${game.outs ?? "—"} OUT${game.outs === 1 ? "" : "S"}</div>`
+          : `<div>${formatTime(game.startTime)}</div><div>${game.status.detailed || "SCHEDULED"}</div>`;
+        const right = game.status.label === "LIVE"
+          ? `<div class="local-stats">${stats}</div><div>${game.liveSituation || ""}</div><div>COUNT ${game.count || "—"}</div>`
+          : `<div class="local-stats">${stats}</div><div>${game.venue ? game.venue.name : "Venue TBD"}</div>`;
+        return `
+          <div class="local-card ${game.status.label === "LIVE" ? "local-live" : ""}">
+            <div class="local-teams">
+              <div class="local-team-line away">${game.awayTeam.shortName || game.awayTeam.name}<span class="local-team-score">${game.awayScore ?? "—"}</span></div>
+              <div class="local-team-line">${game.homeTeam.shortName || game.homeTeam.name}<span class="local-team-score">${game.homeScore ?? "—"}</span></div>
+            </div>
+            <div class="local-middle">${middle}</div>
+            <div class="local-right">${right}</div>
+          </div>`;
+      }).join("")}
+    </div>`;
 }
 
 
@@ -622,10 +935,14 @@ function displayPage(){
       "games"
     );
 
+  const gamesPerPage = document
+    .getElementById("localTeams")
+    .classList.contains("has-games") ? 8 : GAMES_PER_PAGE;
+
   const totalPages =
     Math.ceil(
       allGames.length /
-      GAMES_PER_PAGE
+      gamesPerPage
     );
 
   if(
@@ -636,12 +953,12 @@ function displayPage(){
 
   const start =
     currentPage *
-    GAMES_PER_PAGE;
+    gamesPerPage;
 
   const end =
     Math.min(
       start +
-      GAMES_PER_PAGE,
+      gamesPerPage,
       allGames.length
     );
 
@@ -718,7 +1035,7 @@ async function loadHeadlines(){
     ticker.textContent =
       headlines.length
         ? headlines.join(
-            "   •   "
+            "          •          "
           )
         : "MLB HEADLINES — NO RECENT STORIES";
 
@@ -784,69 +1101,55 @@ async function loadGames(){
 
   try{
 
-    const dateKeys = [0, -1, -2].map(offset => {
-      const date = new Date();
-      date.setDate(date.getDate() + offset);
+    const response = await fetch(DATA_URL, {cache:"no-store"});
+    if(!response.ok){
+      throw new Error("MLB data unavailable");
+    }
 
-      const localDate =
-        new Date(
-          date.toLocaleString(
-            "en-US",
-            {timeZone:"America/Los_Angeles"}
-          )
-        );
+    const payload = await response.json();
+    if(!Array.isArray(payload)){
+      throw new Error("MLB data format unavailable");
+    }
 
-      const year = localDate.getFullYear();
-      const month = (
-        "0" + (localDate.getMonth() + 1)
-      ).slice(-2);
-      const day = (
-        "0" + localDate.getDate()
-      ).slice(-2);
+    let games = payload
+      .filter(game => game && game.awayTeam && game.homeTeam)
+      .sort((a,b) => new Date(a.startTime) - new Date(b.startTime));
 
-      return year + month + day;
-    });
-
-    const payloads =
-      await Promise.all(
-        dateKeys.map((dateKey,index) => {
-          const url =
-            index === 0
-              ? DATA_URL + "?limit=100"
-              : DATA_URL + "?limit=100&dates=" + dateKey;
-
-          return fetch(
-            url,
-            {cache:"no-store"}
-          )
-            .then(response =>
-              response.ok
-                ? response.json()
-                : null
-            )
-            .catch(() => null);
-        })
+    if(DEMO_LOCAL_LIVE){
+      const demoIndex = games.findIndex(game =>
+        game.localTeam && game.localTeam.shortName === "Dodgers"
       );
+      const index = demoIndex >= 0 ? demoIndex : games.findIndex(game => game.isLocalTeam);
 
-    const games =
-      payloads.filter(Boolean).flatMap(
-        (payload,index) =>
-          (payload.events || [])
-            .map(event => normalizeMlbGame(event,index === 0))
-            .filter(Boolean)
-      );
-
-    games.sort((a,b) => {
-      if(a.isToday !== b.isToday){
-        return a.isToday ? -1 : 1;
+      if(index >= 0){
+        games[index] = {
+          ...games[index],
+          awayScore: 2,
+          homeScore: 4,
+          status:{
+            label:"LIVE",
+            className:"live",
+            abstract:"Live",
+            detailed:"In Progress",
+            code:"I"
+          },
+          currentInning:6,
+          currentInningOrdinal:"6th",
+          inningState:"Bottom",
+          outs:1,
+          awayStats:{runs:2,hits:5,errors:1},
+          homeStats:{runs:4,hits:8,errors:0},
+          liveSituation:"Runner on 2nd",
+          count:"1–2",
+          lastPlay:"Smith singled to center"
+        };
       }
-      return a.isToday
-        ? new Date(a.start) - new Date(b.start)
-        : new Date(b.start) - new Date(a.start);
-    });
+    }
 
-    allGames = games;
+    allGames = games.filter(game => !game.isLocalTeam);
     currentPage = 0;
+
+    renderLocalTeams(games);
 
     if(!allGames.length){
       gamesDiv.innerHTML =
@@ -860,7 +1163,11 @@ async function loadGames(){
       clearInterval(pageTimer);
     }
 
-    if(allGames.length > GAMES_PER_PAGE){
+    const visiblePageSize = document
+      .getElementById("localTeams")
+      .classList.contains("has-games") ? 8 : GAMES_PER_PAGE;
+
+    if(allGames.length > visiblePageSize){
       pageTimer = setInterval(displayPage,PAGE_DURATION);
     }
 
