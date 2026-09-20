@@ -1,0 +1,9 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "pv-house-sports",
+  "main": "worker.js",
+  "compatibility_date": "2026-09-19",
+  "observability": {
+    "enabled": true
+  }
+}
