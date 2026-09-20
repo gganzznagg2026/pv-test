@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AP Top 25 - College Football</title>
+
+  <style>
+    :root {
+      --bg: #06101c;
+      --white: #f5f7fa;
+      --muted: #b9c3cf;
+      --red: #e51f35;
+      --green: #22e66b;
+      --down: #ff4058;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+      font-family: Impact, Haettenschweiler, "Arial Narrow Bold", Arial, sans-serif;
+      color: var(--white);
+    }
+
+    body {
+      position: relative;
+      background:
+        radial-gradient(circle at 12% 8%, rgba(255,255,255,.38), transparent 9%),
+        radial-gradient(circle at 88% 8%, rgba(255,255,255,.34), transparent 9%),
+        linear-gradient(rgba(3, 10, 18, .70), rgba(3, 10, 18, .90)),
+        linear-gradient(180deg, #0b1b2d 0%, #07111e 45%, #06110c 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 80px 80px;
+      opacity: .35;
+      pointer-events: none;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 185px;
+      background:
+        radial-gradient(ellipse at center bottom, rgba(62, 118, 60, .85), transparent 63%),
+        linear-gradient(180deg, transparent, rgba(12, 45, 25, .95));
+      pointer-events: none;
+    }
+
+    .board {
+      position: relative;
+      z-index: 2;
+      width: 1920px;
+      height: 1080px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform-origin: center;
+      transform: translate(-50%, -50%) scale(var(--board-scale, 1));
+      padding: 38px 38px 28px;
+    }
+
+    .header {
+      height: 165px;
+      display: grid;
+      grid-template-columns: 235px 1fr 360px;
+      gap: 30px;
+      align-items: start;
+    }
+
+    .ap-box {
+      height: 145px;
+      background: #f4f4f4;
+      color: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 92px;
+      letter-spacing: -4px;
+      position: relative;
+      box-shadow: 0 8px 22px rgba(0,0,0,.45);
+    }
+
+    .ap-box::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 21px;
+      background: var(--red);
+    }
+
+    .title-wrap {
+      text-align: center;
+      line-height: .85;
+    }
+
+    .title {
+      font-size: 150px;
+      letter-spacing: 6px;
+      text-shadow: 0 6px 22px rgba(0,0,0,.65);
+    }
+
+    .title span {
+      color: var(--red);
+    }
+
+    .subtitle {
+      margin-top: 6px;
+      font-family: Arial, sans-serif;
+      font-size: 26px;
+      letter-spacing: 13px;
+      font-weight: 800;
+    }
+
+    .week-box {
+      height: 92px;
+      border: 2px solid rgba(180, 200, 220, .42);
+      background: rgba(8, 20, 34, .72);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 22px rgba(0,0,0,.35);
+    }
+
+    .week-box .week {
+      font-size: 43px;
+      line-height: 1;
+    }
+
+    .week-box .date {
+      margin-top: 9px;
+      font-family: Arial, sans-serif;
+      font-size: 18px;
+      letter-spacing: 2px;
+      color: #d8e1ec;
+      font-weight: 800;
+    }
+
+    .tagline {
+      margin-top: 20px;
+      text-align: center;
+      font-family: "Brush Script MT", cursive;
+      font-size: 30px;
+      transform: rotate(-5deg);
+      text-shadow: 0 4px 12px rgba(0,0,0,.65);
+    }
+
+    .tagline::after {
+      content: "";
+      display: block;
+      width: 250px;
+      height: 5px;
+      background: var(--red);
+      margin: 4px auto 0;
+      transform: skewX(-20deg);
+    }
+
+    .grid {
+      height: 650px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: repeat(5, 1fr);
+      gap: 14px 16px;
+      margin-top: 14px;
+    }
+
+    .team-card {
+      position: relative;
+      overflow: hidden;
+      border: 2px solid rgba(215,225,235,.62);
+      background: var(--team);
+      box-shadow: 0 10px 22px rgba(0,0,0,.55);
+    }
+
+    .team-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.16), transparent 28%, rgba(0,0,0,.28)),
+        linear-gradient(180deg, rgba(255,255,255,.12), rgba(0,0,0,.22));
+      pointer-events: none;
+    }
+
+    .rank {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 70px;
+      height: 52px;
+      background: #eff2f5;
+      color: #07111e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 35px;
+      z-index: 2;
+    }
+
+    .mark {
+      position: absolute;
+      left: 84px;
+      top: 13px;
+      right: 118px;
+      height: 55px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 49px;
+      color: rgba(255,255,255,.94);
+      letter-spacing: -1px;
+      text-shadow: 0 4px 10px rgba(0,0,0,.52);
+      z-index: 2;
+    }
+
+    .record {
+      position: absolute;
+      top: 22px;
+      right: 24px;
+      font-size: 34px;
+      z-index: 2;
+      text-shadow: 0 4px 10px rgba(0,0,0,.55);
+    }
+
+    .name {
+      position: absolute;
+      bottom: 12px;
+      left: 8px;
+      right: 8px;
+      text-align: center;
+      font-size: 31px;
+      letter-spacing: 1px;
+      z-index: 2;
+      text-shadow: 0 4px 9px rgba(0,0,0,.65);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .move {
+      position: absolute;
+      right: 24px;
+      bottom: 48px;
+      font-size: 26px;
+      z-index: 2;
+      font-family: Arial, sans-serif;
+      font-weight: 900;
+    }
+
+    .move.up {
+      color: var(--green);
+    }
+
+    .move.down {
+      color: var(--down);
+    }
+
+    .move.same,
+    .move.nr {
+      color: #f2f4f6;
+    }
+
+    .footer {
+      position: absolute;
+      left: 64px;
+      right: 64px;
+      bottom: 28px;
+      z-index: 3;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      pointer-events: none;
+    }
+
+    .footer-left {
+      font-family: Arial, sans-serif;
+      font-size: 22px;
+      letter-spacing: 9px;
+      line-height: 1.45;
+      color: #e8eef5;
+      text-shadow: 0 5px 10px rgba(0,0,0,.7);
+    }
+
+    .football {
+      position: absolute;
+      left: 50%;
+      bottom: -58px;
+      transform: translateX(-50%);
+      width: 470px;
+      height: 185px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 50% 20%, rgba(255,255,255,.16), transparent 20%),
+        linear-gradient(90deg, #5b2d17, #9a4d28, #4a2414);
+      border: 4px solid rgba(210,170,125,.85);
+      box-shadow: 0 -8px 35px rgba(0,0,0,.72);
+      z-index: 2;
+    }
+
+    .football::before {
+      content: "";
+      position: absolute;
+      top: 36px;
+      left: 170px;
+      width: 130px;
+      height: 10px;
+      border-radius: 8px;
+      background: #f2ede5;
+    }
+
+    .football::after {
+      content: "";
+      position: absolute;
+      top: 24px;
+      left: 198px;
+      width: 74px;
+      height: 64px;
+      background:
+        linear-gradient(90deg, transparent 0 10px, #f2ede5 10px 17px, transparent 17px 28px, #f2ede5 28px 35px, transparent 35px 46px, #f2ede5 46px 53px, transparent 53px);
+      transform: rotate(4deg);
+    }
+
+    .footer-right {
+      font-family: "Brush Script MT", cursive;
+      font-size: 36px;
+      transform: rotate(-5deg);
+      text-shadow: 0 5px 10px rgba(0,0,0,.7);
+    }
+
+    .footer-right::after {
+      content: "";
+      display: block;
+      height: 5px;
+      width: 330px;
+      background: var(--red);
+      transform: skewX(-20deg);
+      margin-top: 2px;
+    }
+
+  </style>
+</head>
+
+<body>
+  <main class="board">
+    <section class="header">
+      <div class="ap-box">AP</div>
+
+      <div class="title-wrap">
+        <div class="title">TOP <span>25</span></div>
+        <div class="subtitle">COLLEGE FOOTBALL RANKINGS</div>
+      </div>
+
+      <div>
+        <div class="week-box">
+          <div class="week">WEEK 4</div>
+          <div class="date">UPDATED SEP 20, 2026</div>
+        </div>
+        <div class="tagline">Same passion. A bigger game.</div>
+      </div>
+    </section>
+
+    <section class="grid" id="rankingsGrid"></section>
+
+    <div class="football"></div>
+
+    <footer class="footer">
+      <div class="footer-left">TRADITION FUELS<br />TOMORROW</div>
+      <div class="footer-right">College football lives here.</div>
+    </footer>
+  </main>
+
+  <script>
+    // Preserve the drafted 1920x1080 design on any signage viewport.
+    function fitBoard() {
+      document.documentElement.style.setProperty('--board-scale', Math.min(window.innerWidth / 1920, window.innerHeight / 1080));
+    }
+    fitBoard();
+    window.addEventListener('resize', fitBoard);
+
+    const rankings = [
+      { rank: 1, team: "Texas", abbr: "TEXAS", record: "4-0", move: "—", color: "#9b4a08" },
+      { rank: 2, team: "Georgia", abbr: "G", record: "4-0", move: "—", color: "#990018" },
+      { rank: 3, team: "Notre Dame", abbr: "ND", record: "4-0", move: "—", color: "#0b376f" },
+      { rank: 4, team: "Ole Miss", abbr: "MISS", record: "4-0", move: "+5", color: "#082c5f" },
+      { rank: 5, team: "Indiana", abbr: "IU", record: "4-0", move: "-1", color: "#990000" },
+      { rank: 6, team: "Miami", abbr: "U", record: "4-0", move: "-1", color: "#0a5a38" },
+      { rank: 7, team: "Ohio State", abbr: "OSU", record: "3-1", move: "-1", color: "#b3152a" },
+      { rank: 8, team: "Alabama", abbr: "A", record: "3-1", move: "+2", color: "#8f1428" },
+      { rank: 9, team: "BYU", abbr: "Y", record: "4-0", move: "+2", color: "#0047ba" },
+      { rank: 10, team: "LSU", abbr: "LSU", record: "3-1", move: "-3", color: "#461d7c" },
+      { rank: 11, team: "Texas Tech", abbr: "TTU", record: "3-1", move: "+2", color: "#111111" },
+      { rank: 12, team: "USC", abbr: "SC", record: "4-0", move: "—", color: "#990018" },
+      { rank: 13, team: "Penn State", abbr: "PSU", record: "4-0", move: "+1", color: "#12315c" },
+      { rank: 14, team: "Tennessee", abbr: "T", record: "3-1", move: "+1", color: "#c95713" },
+      { rank: 15, team: "Utah", abbr: "UU", record: "3-1", move: "+2", color: "#890f1a" },
+      { rank: 16, team: "Louisville", abbr: "LOU", record: "4-0", move: "+7", color: "#ad0000" },
+      { rank: 17, team: "Iowa", abbr: "IOWA", record: "4-0", move: "+1", color: "#222222" },
+      { rank: 18, team: "Michigan", abbr: "M", record: "3-1", move: "+1", color: "#072a5e" },
+      { rank: 19, team: "Missouri", abbr: "MIZ", record: "4-0", move: "+1", color: "#272727" },
+      { rank: 20, team: "Oregon", abbr: "O", record: "3-1", move: "+1", color: "#064d2d" },
+      { rank: 21, team: "Florida", abbr: "UF", record: "3-1", move: "NR", color: "#0647a8" },
+      { rank: 22, team: "SMU", abbr: "SMU", record: "3-1", move: "-6", color: "#0642a3" },
+      { rank: 23, team: "Texas A&M", abbr: "A&M", record: "3-1", move: "-14", color: "#500000" },
+      { rank: 24, team: "Mississippi State", abbr: "MSU", record: "4-0", move: "NR", color: "#5d1725" },
+      { rank: 25, team: "Houston", abbr: "UH", record: "4-0", move: "-3", color: "#c8102e" }
+    ];
+
+    function movementClass(move) {
+      if (move === "NR") return "nr";
+      if (move === "—") return "same";
+      if (move.startsWith("+")) return "up";
+      return "down";
+    }
+
+    function movementText(move) {
+      if (move === "NR" || move === "—") return move;
+      if (move.startsWith("+")) return `▲ ${move}`;
+      return `▼ ${move.replace("-", "")}`;
+    }
+
+    const grid = document.getElementById("rankingsGrid");
+
+    rankings.forEach(team => {
+      const card = document.createElement("article");
+      card.className = "team-card";
+      card.style.setProperty("--team", team.color);
+
+      card.innerHTML = `
+        <div class="rank">${team.rank}</div>
+        <div class="mark">${team.abbr}</div>
+        <div class="record">${team.record}</div>
+        <div class="move ${movementClass(team.move)}">${movementText(team.move)}</div>
+        <div class="name">${team.team.toUpperCase()}</div>
+      `;
+
+      grid.appendChild(card);
+    });
+  </script>
+</body>
+</html>
