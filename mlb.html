@@ -1146,7 +1146,7 @@ async function loadGames(){
       }
     }
 
-    allGames = games.filter(game => !isFeaturedMlbGame(game));
+    allGames = games.filter(game => !isFeaturedMlbGame(game)); if(!allGames.length && games.length){ allGames = games; }
     currentPage = 0;
 
     renderLocalTeams(games);
