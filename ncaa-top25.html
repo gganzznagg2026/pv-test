@@ -219,10 +219,11 @@
 
     .mark {
       position: absolute;
-      left: 84px;
-      top: 13px;
-      right: 118px;
-      height: 55px;
+      left: 50%;
+      top: 5px;
+      width: 112px;
+      height: 64px;
+      transform: translateX(-50%);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -381,6 +382,14 @@
       height: auto;
       filter: brightness(0) invert(1) drop-shadow(0 3px 5px rgba(0,0,0,.8));
     }
+    .team-logo {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 2px rgba(0,0,0,.6));
+    }
+    .logo-fallback { font-size: 38px; }
   </style>
 </head>
 
@@ -422,31 +431,31 @@
     window.addEventListener('resize', fitBoard);
 
     const rankings = [
-      { rank: 1, team: "Texas", abbr: "TEXAS", record: "4-0", move: "—", color: "#9b4a08" },
-      { rank: 2, team: "Georgia", abbr: "G", record: "4-0", move: "—", color: "#990018" },
-      { rank: 3, team: "Notre Dame", abbr: "ND", record: "4-0", move: "—", color: "#0b376f" },
-      { rank: 4, team: "Ole Miss", abbr: "MISS", record: "4-0", move: "+5", color: "#082c5f" },
-      { rank: 5, team: "Indiana", abbr: "IU", record: "4-0", move: "-1", color: "#990000" },
-      { rank: 6, team: "Miami", abbr: "U", record: "4-0", move: "-1", color: "#0a5a38" },
-      { rank: 7, team: "Ohio State", abbr: "OSU", record: "3-1", move: "-1", color: "#b3152a" },
-      { rank: 8, team: "Alabama", abbr: "A", record: "3-1", move: "+2", color: "#8f1428" },
-      { rank: 9, team: "BYU", abbr: "Y", record: "4-0", move: "+2", color: "#0047ba" },
-      { rank: 10, team: "LSU", abbr: "LSU", record: "3-1", move: "-3", color: "#461d7c" },
-      { rank: 11, team: "Texas Tech", abbr: "TTU", record: "3-1", move: "+2", color: "#111111" },
-      { rank: 12, team: "USC", abbr: "SC", record: "4-0", move: "—", color: "#990018" },
-      { rank: 13, team: "Penn State", abbr: "PSU", record: "4-0", move: "+1", color: "#12315c" },
-      { rank: 14, team: "Tennessee", abbr: "T", record: "3-1", move: "+1", color: "#c95713" },
-      { rank: 15, team: "Utah", abbr: "UU", record: "3-1", move: "+2", color: "#890f1a" },
-      { rank: 16, team: "Louisville", abbr: "LOU", record: "4-0", move: "+7", color: "#ad0000" },
-      { rank: 17, team: "Iowa", abbr: "IOWA", record: "4-0", move: "+1", color: "#222222" },
-      { rank: 18, team: "Michigan", abbr: "M", record: "3-1", move: "+1", color: "#072a5e" },
-      { rank: 19, team: "Missouri", abbr: "MIZ", record: "4-0", move: "+1", color: "#272727" },
-      { rank: 20, team: "Oregon", abbr: "O", record: "3-1", move: "+1", color: "#064d2d" },
-      { rank: 21, team: "Florida", abbr: "UF", record: "3-1", move: "NR", color: "#0647a8" },
-      { rank: 22, team: "SMU", abbr: "SMU", record: "3-1", move: "-6", color: "#0642a3" },
-      { rank: 23, team: "Texas A&M", abbr: "A&M", record: "3-1", move: "-14", color: "#500000" },
-      { rank: 24, team: "Mississippi State", abbr: "MSU", record: "4-0", move: "NR", color: "#5d1725" },
-      { rank: 25, team: "Houston", abbr: "UH", record: "4-0", move: "-3", color: "#c8102e" }
+      { rank: 1, logoId: 251, team: "Texas", abbr: "TEXAS", record: "4-0", move: "—", color: "#9b4a08" },
+      { rank: 2, logoId: 61, team: "Georgia", abbr: "G", record: "4-0", move: "—", color: "#990018" },
+      { rank: 3, logoId: 87, team: "Notre Dame", abbr: "ND", record: "4-0", move: "—", color: "#0b376f" },
+      { rank: 4, logoId: 145, team: "Ole Miss", abbr: "MISS", record: "4-0", move: "+5", color: "#082c5f" },
+      { rank: 5, logoId: 84, team: "Indiana", abbr: "IU", record: "4-0", move: "-1", color: "#990000" },
+      { rank: 6, logoId: 2390, team: "Miami", abbr: "U", record: "4-0", move: "-1", color: "#0a5a38" },
+      { rank: 7, logoId: 194, team: "Ohio State", abbr: "OSU", record: "3-1", move: "-1", color: "#b3152a" },
+      { rank: 8, logoId: 333, team: "Alabama", abbr: "A", record: "3-1", move: "+2", color: "#8f1428" },
+      { rank: 9, logoId: 252, team: "BYU", abbr: "Y", record: "4-0", move: "+2", color: "#0047ba" },
+      { rank: 10, logoId: 99, team: "LSU", abbr: "LSU", record: "3-1", move: "-3", color: "#461d7c" },
+      { rank: 11, logoId: 2641, team: "Texas Tech", abbr: "TTU", record: "3-1", move: "+2", color: "#111111" },
+      { rank: 12, logoId: 30, team: "USC", abbr: "SC", record: "4-0", move: "—", color: "#990018" },
+      { rank: 13, logoId: 213, team: "Penn State", abbr: "PSU", record: "4-0", move: "+1", color: "#12315c" },
+      { rank: 14, logoId: 2633, team: "Tennessee", abbr: "T", record: "3-1", move: "+1", color: "#c95713" },
+      { rank: 15, logoId: 254, team: "Utah", abbr: "UU", record: "3-1", move: "+2", color: "#890f1a" },
+      { rank: 16, logoId: 97, team: "Louisville", abbr: "LOU", record: "4-0", move: "+7", color: "#ad0000" },
+      { rank: 17, logoId: 2294, team: "Iowa", abbr: "IOWA", record: "4-0", move: "+1", color: "#222222" },
+      { rank: 18, logoId: 130, team: "Michigan", abbr: "M", record: "3-1", move: "+1", color: "#072a5e" },
+      { rank: 19, logoId: 142, team: "Missouri", abbr: "MIZ", record: "4-0", move: "+1", color: "#272727" },
+      { rank: 20, logoId: 2483, team: "Oregon", abbr: "O", record: "3-1", move: "+1", color: "#064d2d" },
+      { rank: 21, logoId: 57, team: "Florida", abbr: "UF", record: "3-1", move: "NR", color: "#0647a8" },
+      { rank: 22, logoId: 2567, team: "SMU", abbr: "SMU", record: "3-1", move: "-6", color: "#0642a3" },
+      { rank: 23, logoId: 245, team: "Texas A&M", abbr: "A&M", record: "3-1", move: "-14", color: "#500000" },
+      { rank: 24, logoId: 344, team: "Mississippi State", abbr: "MSU", record: "4-0", move: "NR", color: "#5d1725" },
+      { rank: 25, logoId: 248, team: "Houston", abbr: "UH", record: "4-0", move: "-3", color: "#c8102e" }
     ];
 
     function movementClass(move) {
@@ -472,12 +481,19 @@
 
       card.innerHTML = `
         <div class="rank">${team.rank}</div>
-        <div class="mark">${team.abbr}</div>
+        <div class="mark"><img class="team-logo" src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/${team.logoId}.png" alt="${team.team} logo" /></div>
         <div class="record">${team.record}</div>
         <div class="move ${movementClass(team.move)}">${movementText(team.move)}</div>
         <div class="name">${team.team.toUpperCase()}</div>
       `;
 
+      const logo = card.querySelector('.team-logo');
+      logo.addEventListener('error', () => {
+        const fallback = document.createElement('span');
+        fallback.className = 'logo-fallback';
+        fallback.textContent = team.abbr;
+        logo.replaceWith(fallback);
+      }, { once: true });
       grid.appendChild(card);
     });
   </script>
