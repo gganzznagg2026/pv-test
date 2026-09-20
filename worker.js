@@ -130,7 +130,7 @@ export default {
       });
 
       return new Response(
-        JSON.stringify(sportKey === "baseball_mlb" ? {events: mergedGames.map(game => { const byName = {}; (game.scores || []).forEach(score => { byName[score.name] = score.score; }); return {id: game.id, date: game.commence_time, competitions: [{competitors: [{homeAway: "away", team: {displayName: game.away_team}, score: byName[game.away_team] || "—"}, {homeAway: "home", team: {displayName: game.home_team}, score: byName[game.home_team] || "—"}], status: {type: {completed: game.completed === true, state: game.completed === true ? "post" : "pre"}}}]};})} : mergedGames),
+        JSON.stringify(sportKey === "baseball_mlb" ? {events: mergedGames.concat(sportKey === "baseball_mlb" ? scores.filter(scoreGame => !mergedGames.some(game => game.id === scoreGame.id)).map(scoreGame => ({id: scoreGame.id, commence_time: scoreGame.commence_time, home_team: scoreGame.home_team, away_team: scoreGame.away_team, completed: scoreGame.completed, scores: scoreGame.scores || null, bookmakers: []})) : []).map(game => { const byName = {}; (game.scores || []).forEach(score => { byName[score.name] = score.score; }); return {id: game.id, date: game.commence_time, competitions: [{competitors: [{homeAway: "away", team: {displayName: game.away_team}, score: byName[game.away_team] || "—"}, {homeAway: "home", team: {displayName: game.home_team}, score: byName[game.home_team] || "—"}], status: {type: {completed: game.completed === true, state: game.completed === true ? "post" : "pre"}}}]};})} : mergedGames),
         {
           status: 200,
           headers: {
