@@ -647,7 +647,7 @@ const PAGE_DURATION = 12000;
 
 let allGames = [];
 let currentPage = 0;
-let pageTimer = null;function isFeaturedMlbGame(game){  const teamNames = [    game && game.awayTeam && game.awayTeam.name,    game && game.homeTeam && game.homeTeam.name  ];  return Boolean(    game &&    (      game.isLocalTeam === true ||      teamNames.some(name => FEATURED_TEAMS.includes(name))    )  );}
+let pageTimer = null;function isFeaturedMlbGame(game){  const teamNames = [    game && game.awayTeam && game.awayTeam.name,    game && game.homeTeam && game.homeTeam.name  ];  return Boolean(    game &&    (            teamNames.some(name => FEATURED_TEAMS.includes(name))    )  );}
 
 
 /* ---------- DATE / TIME ---------- */
