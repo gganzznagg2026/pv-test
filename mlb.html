@@ -1095,7 +1095,7 @@ function normalizeMlbGame(event,isToday){
 
 
 
-async function loadGames(){
+function normalizeOddsGame(raw){ const awayName = raw.away_team || (raw.awayTeam && raw.awayTeam.name) || ""; const homeName = raw.home_team || (raw.homeTeam && raw.homeTeam.name) || ""; const scores = raw.scores || []; const awayScore = raw.awayScore ?? (scores.find(score => score.name === awayName) || {}).score ?? null; const homeScore = raw.homeScore ?? (scores.find(score => score.name === homeName) || {}).score ?? null; const status = raw.status || {}; const completed = raw.completed === true || status.label === "FINAL"; const live = status.label === "LIVE" || Boolean(scores.length && !completed); return { ...raw, awayTeam:{...(raw.awayTeam || {}),name:awayName,shortName:(raw.awayTeam && raw.awayTeam.shortName) || awayName}, homeTeam:{...(raw.homeTeam || {}),name:homeName,shortName:(raw.homeTeam && raw.homeTeam.shortName) || homeName}, startTime:raw.startTime || raw.commence_time || "", awayScore, homeScore, status:{...status,label:completed ? "FINAL" : live ? "LIVE" : "UPCOMING",className:completed ? "final" : live ? "live" : "upcoming",detailed:status.detailed || (completed ? "Final" : live ? "In Progress" : "Scheduled")}, venue:raw.venue || null, probablePitchers:raw.probablePitchers || {away:null,home:null}, awayStats:raw.awayStats || {}, homeStats:raw.homeStats || {}, isLocalTeam:FEATURED_TEAMS.includes(awayName) || FEATURED_TEAMS.includes(homeName) }; } async function loadGames(){
 
   const gamesDiv = document.getElementById("games");
 
@@ -1112,7 +1112,7 @@ async function loadGames(){
     }
 
     let games = payload
-      .filter(game => game && game.awayTeam && game.homeTeam)
+      .filter(raw => raw && (raw.away_team || raw.awayTeam) && (raw.home_team || raw.homeTeam)).map(normalizeOddsGame)
       .sort((a,b) => new Date(a.startTime) - new Date(b.startTime));
 
     if(DEMO_LOCAL_LIVE){
