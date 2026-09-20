@@ -414,7 +414,11 @@ html,body{
 }
 
 .status.final{
-  color:#888;
+  color:#5cb85c;
+}
+
+.odds .total.final{
+  color:#5cb85c;
 }
 
 .status.upcoming{
@@ -540,6 +544,8 @@ html,body{
 #games .game-row:nth-child(odd),
 #games .game-row:nth-child(even){width:calc(100% + 164px);}
 #games .game-row:nth-child(even){transform:translateX(0);}
+#games .game-row:nth-child(odd){box-shadow:24px 0 0 #0d0d0d;}
+#games .game-row:nth-child(even){box-shadow:-24px 0 0 #0d0d0d;}
 #games .game-row:nth-child(even) > .two-lines,
 #games .game-row:nth-child(even) > .odds,
 #games .game-row:nth-child(even) > .game-info{transform:translateX(46px);}
@@ -647,7 +653,23 @@ const PAGE_DURATION = 12000;
 
 let allGames = [];
 let currentPage = 0;
-let pageTimer = null;function isFeaturedMlbGame(game){  const teamNames = [    game && game.awayTeam && game.awayTeam.name,    game && game.homeTeam && game.homeTeam.name  ];  return Boolean(    game &&    (            teamNames.some(name => FEATURED_TEAMS.includes(name))    )  );}
+let pageTimer = null;
+
+function isFeaturedMlbGame(game){
+
+  const teamNames = [
+    game && game.awayTeam && game.awayTeam.name,
+    game && game.homeTeam && game.homeTeam.name
+  ];
+
+  return Boolean(
+    game &&
+    (
+      teamNames.some(name => FEATURED_TEAMS.includes(name))
+    )
+  );
+
+}
 
 
 /* ---------- DATE / TIME ---------- */
@@ -829,6 +851,7 @@ function gameStatus(game){
 function createGameRow(game){
 
   const featured = isFeatured(game);
+  const finalGame = game.status.label === "FINAL";
   const awayScore = game.awayScore !== null ? game.awayScore : "—";
   const homeScore = game.homeScore !== null ? game.homeScore : "—";
   const inning = game.status.label === "LIVE"
@@ -857,9 +880,9 @@ function createGameRow(game){
         </div>
       </div>
 
-      <div class="odds"><div class="total">${inning}</div></div>
-      <div class="odds"><div class="total">${formatTime(game.startTime)}</div></div>
-      <div class="odds"><div class="total">${game.venue ? game.venue.name : "—"}</div></div>
+      <div class="odds"><div class="total ${finalGame ? "final" : ""}">${inning}</div></div>
+      <div class="odds"><div class="total">${finalGame ? "" : formatTime(game.startTime)}</div></div>
+      <div class="odds"><div class="total">${finalGame ? "" : (game.venue ? game.venue.name : "—")}</div></div>
 
       <div class="game-info">
         <div class="game-date">${formatGameDate(game.startTime)}</div>
@@ -1095,7 +1118,52 @@ function normalizeMlbGame(event,isToday){
 
 
 
-function normalizeOddsGame(raw){ const awayName = raw.away_team || (raw.awayTeam && raw.awayTeam.name) || ""; const homeName = raw.home_team || (raw.homeTeam && raw.homeTeam.name) || ""; const scores = raw.scores || []; const awayScore = raw.awayScore ?? (scores.find(score => score.name === awayName) || {}).score ?? null; const homeScore = raw.homeScore ?? (scores.find(score => score.name === homeName) || {}).score ?? null; const status = raw.status || {}; const completed = raw.completed === true || status.label === "FINAL"; const live = status.label === "LIVE" || Boolean(scores.length && !completed); return { ...raw, awayTeam:{...(raw.awayTeam || {}),name:awayName,shortName:(raw.awayTeam && raw.awayTeam.shortName) || awayName}, homeTeam:{...(raw.homeTeam || {}),name:homeName,shortName:(raw.homeTeam && raw.homeTeam.shortName) || homeName}, startTime:raw.startTime || raw.commence_time || "", awayScore, homeScore, status:{...status,label:completed ? "FINAL" : live ? "LIVE" : "UPCOMING",className:completed ? "final" : live ? "live" : "upcoming",detailed:status.detailed || (completed ? "Final" : live ? "In Progress" : "Scheduled")}, venue:raw.venue || null, probablePitchers:raw.probablePitchers || {away:null,home:null}, awayStats:raw.awayStats || {}, homeStats:raw.homeStats || {}, isLocalTeam:FEATURED_TEAMS.includes(awayName) || FEATURED_TEAMS.includes(homeName) }; } async function loadGames(){
+function normalizeOddsGame(raw){
+
+  const awayName = raw.away_team || (raw.awayTeam && raw.awayTeam.name) || "";
+  const homeName = raw.home_team || (raw.homeTeam && raw.homeTeam.name) || "";
+  const scores = raw.scores || [];
+  const awayScore = raw.awayScore ?? raw.away_score ?? (scores.find(score => score.name === awayName) || {}).score ?? null;
+  const homeScore = raw.homeScore ?? raw.home_score ?? (scores.find(score => score.name === homeName) || {}).score ?? null;
+  const status = typeof raw.status === "string" ? {label:raw.status} : (raw.status || {});
+  const statusLabel = String(status.label || status.name || status.state || "").toUpperCase();
+  const completed = raw.completed === true || statusLabel === "FINAL" || statusLabel === "COMPLETED";
+  const live = statusLabel === "LIVE" || statusLabel === "IN PROGRESS" || Boolean(scores.length && !completed);
+  const venueValue = raw.venue ?? raw.venue_name ?? raw.venueName ?? null;
+  const venue = typeof venueValue === "string"
+    ? {name:venueValue}
+    : venueValue && typeof venueValue === "object"
+      ? { ...venueValue, name: venueValue.name || venueValue.fullName || venueValue.venue_name || "" }
+      : null;
+  const awayStats = raw.awayStats || raw.away_stats || {};
+  const homeStats = raw.homeStats || raw.home_stats || {};
+  const probablePitchers = raw.probablePitchers || raw.probable_pitchers || {away:null,home:null};
+
+  return {
+    ...raw,
+    awayTeam:{...(raw.awayTeam || {}),name:awayName,shortName:(raw.awayTeam && raw.awayTeam.shortName) || raw.away_team_short_name || awayName},
+    homeTeam:{...(raw.homeTeam || {}),name:homeName,shortName:(raw.homeTeam && raw.homeTeam.shortName) || raw.home_team_short_name || homeName},
+    startTime:raw.startTime || raw.commence_time || "",
+    awayScore,
+    homeScore,
+    status:{...status,label:completed ? "FINAL" : live ? "LIVE" : "UPCOMING",className:completed ? "final" : live ? "live" : "upcoming",detailed:status.detailed || (completed ? "Final" : live ? "In Progress" : "Scheduled")},
+    currentInning:raw.currentInning ?? raw.current_inning ?? null,
+    currentInningOrdinal:raw.currentInningOrdinal || raw.current_inning_ordinal || null,
+    inningState:raw.inningState || raw.inning_state || null,
+    outs:raw.outs ?? null,
+    venue,
+    probablePitchers,
+    awayStats,
+    homeStats,
+    liveSituation:raw.liveSituation || raw.live_situation || raw.runners || null,
+    count:raw.count || raw.batter_count || null,
+    isLocalTeam:FEATURED_TEAMS.includes(awayName) || FEATURED_TEAMS.includes(homeName)
+  };
+
+}
+
+
+async function loadGames(){
 
   const gamesDiv = document.getElementById("games");
 
@@ -1112,14 +1180,15 @@ function normalizeOddsGame(raw){ const awayName = raw.away_team || (raw.awayTeam
     }
 
     let games = payload
-      .filter(raw => raw && (raw.away_team || raw.awayTeam) && (raw.home_team || raw.homeTeam)).map(normalizeOddsGame)
+      .filter(raw => raw && (raw.away_team || raw.awayTeam) && (raw.home_team || raw.homeTeam))
+      .map(normalizeOddsGame)
       .sort((a,b) => new Date(a.startTime) - new Date(b.startTime));
 
     if(DEMO_LOCAL_LIVE){
       const demoIndex = games.findIndex(game =>
         game.localTeam && game.localTeam.shortName === "Dodgers"
       );
-      const index = demoIndex >= 0 ? demoIndex : games.findIndex(game => game.isLocalTeam);
+      const index = demoIndex >= 0 ? demoIndex : games.findIndex(isFeaturedMlbGame);
 
       if(index >= 0){
         games[index] = {
@@ -1146,7 +1215,10 @@ function normalizeOddsGame(raw){ const awayName = raw.away_team || (raw.awayTeam
       }
     }
 
-    allGames = games.filter(game => !isFeaturedMlbGame(game)); if(!allGames.length && games.length){ allGames = games; }
+    allGames = games.filter(game => !isFeaturedMlbGame(game));
+    if(!allGames.length && games.length){
+      allGames = games;
+    }
     currentPage = 0;
 
     renderLocalTeams(games);
