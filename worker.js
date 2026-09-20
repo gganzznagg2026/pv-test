@@ -57,7 +57,7 @@ export default {
       "&daysFrom=3" +
       "&dateFormat=iso";
 
-    try { if (sportKey === "baseball_mlb") { const espnDate = url.searchParams.get("dates"); const espnURL = "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard" + (espnDate ? "?dates=" + encodeURIComponent(espnDate) : ""); const espnResponse = await fetch(espnURL); return new Response(await espnResponse.text(), { status: espnResponse.status, headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*", "Cache-Control": "public, max-age=60" } }); }
+    try { if (false) { const espnDate = url.searchParams.get("dates"); const espnURL = "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard" + (espnDate ? "?dates=" + encodeURIComponent(espnDate) : ""); const espnResponse = await fetch(espnURL); return new Response(await espnResponse.text(), { status: espnResponse.status, headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*", "Cache-Control": "public, max-age=60" } }); }
 
       const [oddsResponse, scoresResponse] =
         await Promise.all([
