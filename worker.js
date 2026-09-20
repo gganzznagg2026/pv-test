@@ -4,7 +4,7 @@ export default {
     if (url.pathname === "/nfl-standings") {
       const headers = { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*", "Cache-Control": "public, max-age=300" };
       try {
-        const upstream = await fetch("https://site.api.espn.com/apis/v2/sports/football/nfl/standings", { cf: { cacheTtl: 300 }, signal: AbortSignal.timeout(15000) });
+        const upstream = await fetch("https://site.web.api.espn.com/apis/v2/sports/football/nfl/standings", { cf: { cacheTtl: 300 }, signal: AbortSignal.timeout(15000) });
         if (!upstream.ok) throw new Error("Standings source returned " + upstream.status);
         const data = await upstream.json();
         if (!Array.isArray(data.children)) throw new Error("Standings source is unavailable");
